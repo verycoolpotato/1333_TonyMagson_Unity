@@ -18,7 +18,7 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
 
 
 
-        public override void OnRoomSearched(Player? player = null)
+        public override void OnRoomSearched(Player player = null)
         {
             if (_empty)
             {

@@ -22,7 +22,7 @@ namespace DiceGame.Scripts.Rooms
             West 
         }
 
-        public Dictionary<Direction,Room?> RoomRefs = new Dictionary<Direction, Room?>() { 
+        public Dictionary<Direction,Room> RoomRefs = new Dictionary<Direction, Room>() { 
             {Direction.North, null}, 
             {Direction.East, null},
             {Direction.South, null},
@@ -31,7 +31,7 @@ namespace DiceGame.Scripts.Rooms
 
         
 
-        private WorldManager? _worldManager;
+        private WorldManager _worldManager;
 
         //state of this room?
         protected bool _revealed = false;
@@ -62,7 +62,7 @@ namespace DiceGame.Scripts.Rooms
         /// <summary>
         /// What happens when using the search action
         /// </summary>
-        public virtual void OnRoomSearched(Player? player = null)
+        public virtual void OnRoomSearched(Player player = null)
         {
 
         }

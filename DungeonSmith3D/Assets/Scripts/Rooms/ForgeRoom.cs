@@ -1,6 +1,8 @@
 ﻿
 using DiceGame.Scripts.Creatures;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DiceGame.Scripts.Rooms
 {
@@ -10,7 +12,7 @@ namespace DiceGame.Scripts.Rooms
         {
             return "The room houses a forge, perfect for making new equipment";
         }
-        public override void OnRoomSearched(Player? player = null)
+        public override void OnRoomSearched(Player player = null)
         {
             Console.WriteLine();
             Console.WriteLine("Use a workable metal to begin forging");

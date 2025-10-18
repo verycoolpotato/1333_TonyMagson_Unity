@@ -14,8 +14,8 @@ namespace DiceGame.Scripts.Creatures
     internal class Player : Creature
     {
 
-        private WorldManager? _worldManager;
-       internal static Room? CurrentRoom { get; set; }
+        private WorldManager _worldManager;
+       internal static Room CurrentRoom { get; set; }
 
         private Vector2 _currentLocation = new Vector2(0,0);
 

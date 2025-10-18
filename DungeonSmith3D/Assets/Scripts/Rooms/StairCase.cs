@@ -16,7 +16,7 @@ namespace DiceGame.Scripts.Rooms
             
                 return "A staircase leading to a new floor";
         }
-        public override void OnRoomSearched(Player? player = null)
+        public override void OnRoomSearched(Player player = null)
         {
             
             Console.WriteLine("Would you like to descend to the next floor?");

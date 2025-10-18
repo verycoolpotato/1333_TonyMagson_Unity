@@ -13,7 +13,7 @@ namespace DiceGame.Scripts.CoreSystems
 {
     internal class WorldManager
     {
-        public static WorldManager? Instance { get; private set; }
+        public static WorldManager Instance { get; private set; }
 
         public Dictionary<Direction, Vector2> PossibleDirections = new Dictionary<Direction, Vector2>()
         {

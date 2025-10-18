@@ -5,14 +5,14 @@ using DiceGame.Scripts.Items.Weapons;
 using System;
 using System.Linq;
 using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
+
 using System.Threading;
 
 namespace DiceGame.Scripts.CoreSystems
 {
     internal class GameManager
     {
-        public static GameManager? Instance { get; private set; }
+        public static GameManager Instance { get; private set; }
 
       
 
