@@ -2,202 +2,154 @@
 using DiceGame.Scripts.HelperClasses;
 using DiceGame.Scripts.Items.Consumables;
 using DiceGame.Scripts.Items.Weapons;
-using System;
-using System.Linq;
-using System.Numerics;
-
-using System.Threading;
+using System.Collections;
+using UnityEngine;
 
 namespace DiceGame.Scripts.CoreSystems
 {
-    internal class GameManager
+    internal class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
 
-      
-
-        // Essential systems
         private DieRoller _roller = new DieRoller();
-        
         private WorldManager _worldManager = new WorldManager();
-
-       
 
         internal Player GamePlayer;
 
-        internal GameManager()
+        private void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void Start()
+        {
+            Intro();
+            Play();
         }
 
         internal void Intro()
         {
-            Console.WriteLine("Welcome to Dungeon Smith!");
-            Console.WriteLine("Prepare to enter a deadly dungeon where you'll have to scavenge and create weapons to survive");
+            Debug.Log("<color=yellow>Welcome to Dungeon Smith!</color>");
+            Debug.Log("Prepare to enter a deadly dungeon where you'll have to scavenge and create weapons to survive.");
         }
 
         public void Play()
         {
             // Build the dungeon
             _worldManager.BuildWorld();
+
             // Create player
             GamePlayer = new Player();
+
             _worldManager.DisplayWorld(GamePlayer);
-           
+
             // Start player movement/input
             GamePlayer.CheckInput();
         }
 
         /// <summary>
-        /// start combat with the enemy passed 
+        /// Starts combat with the given enemy.
         /// </summary>
-        /// <param name="enemy"></param>
         public void Combat(Enemy enemy)
         {
-            CombatLoop(GamePlayer, enemy);
+            StartCoroutine(CombatLoop(GamePlayer, enemy));
         }
+
         /// <summary>
-        /// Main fight loop
+        /// Main combat loop (as a coroutine).
         /// </summary>
-        /// <param name="player"></param>
-        /// <param name="enemy"></param>
-        private void CombatLoop(Player player, Enemy enemy)
+        private IEnumerator CombatLoop(Player player, Enemy enemy)
         {
-         
             while (player.Health > 0 && enemy.Health > 0)
             {
-                int PlayerActions = 3;
+                int playerActions = 3;
                 int blockAmount = 0;
-                //Announce enemy intent and health
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"{enemy.Name} has {enemy.Health} Health");
-                int enemyDamage = enemy.NextAttack();
-                Console.WriteLine();
-
-                //Players turn
                 int playerDamage = 0;
 
-                while (PlayerActions > 0)
-                {
-                   
-                    
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"{player.Health} Health");
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine($"You have {PlayerActions} Action points left this turn");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                   
-                    Console.WriteLine($"{playerDamage} Total Damage");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    Item playerItem = player.inventory.CombatInventory();
-                    
-                    if (playerItem.ActionPointCost <= PlayerActions)
-                    {
-                        
+                Debug.Log($"<color=yellow>{enemy.Name} has {enemy.Health} Health</color>");
+                int enemyDamage = enemy.NextAttack();
 
-                        if(playerItem is Fists Guard)
+                while (playerActions > 0)
+                {
+                    Debug.Log($"<color=green>{player.Health} Health</color>");
+                    Debug.Log($"You have {playerActions} Action Points left this turn.");
+                    Debug.Log($"<color=red>Total Damage: {playerDamage}</color>");
+
+                    Item playerItem = player.inventory.CombatInventory();
+
+                    if (playerItem.ActionPointCost <= playerActions)
+                    {
+                        if (playerItem is Fists Guard)
                         {
-                            //damage reduction
-                             blockAmount += Guard.Attack(_roller);
-                            
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine($"{enemy.Name}'s attack reduced to " +
-                                $"{enemy.ModifiedDamage.Start.Value - blockAmount}-" +
-                                $"{enemy.ModifiedDamage.End.Value - blockAmount}");
-                            Console.ResetColor();
-                            
+                            // Damage reduction
+                            blockAmount += Guard.Attack(_roller);
+                            Debug.Log($"<color=yellow>{enemy.Name}'s attack reduced by {blockAmount}</color>");
                         }
                         else if (playerItem is Weapon weapon)
                         {
-                            //deal damage
-                            Console.WriteLine();
                             int roll = weapon.Attack(_roller);
                             playerDamage += roll;
-                            Console.WriteLine();
+                            Debug.Log($"<color=orange>Weapon hit for {roll}!</color>");
                         }
                         else if (playerItem is Consumable consumable)
                         {
-                            //use item
                             consumable.Use();
                         }
 
-                        PlayerActions -= playerItem.ActionPointCost;
-                        continue;
+                        playerActions -= playerItem.ActionPointCost;
                     }
-                   
+
+                    yield return null; // wait a frame between actions
                 }
-                //apply block
+
                 enemyDamage -= blockAmount;
 
-                Console.WriteLine($"{player.Name} swings for {playerDamage}");
-                Console.WriteLine($"{enemy.Name} swings for {enemyDamage}");
-                Console.WriteLine();
+                Debug.Log($"{player.Name} swings for {playerDamage}");
+                Debug.Log($"{enemy.Name} swings for {enemyDamage}");
 
-                //decide roll winner
-                switch (playerDamage > enemyDamage)
+                if (playerDamage > enemyDamage)
                 {
-                    case true:
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"|SUCCESS| {player.Name} hit {enemy.Name} for {playerDamage} damage");
-                        Console.ResetColor();
-                        enemy.Health -= playerDamage;
-                    break;
-                    case false:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"|FAILURE| {enemy.Name} hit {player.Name} for {enemyDamage} damage");
-                        Console.ResetColor();
-                        player.Health -= enemyDamage;
-                    break;
+                    Debug.Log($"<color=green>SUCCESS! {player.Name} hit {enemy.Name} for {playerDamage} damage.</color>");
+                    enemy.Health -= playerDamage;
                 }
-                
-                Console.WriteLine();
+                else
+                {
+                    Debug.Log($"<color=red>FAILURE! {enemy.Name} hit {player.Name} for {enemyDamage} damage.</color>");
+                    player.Health -= enemyDamage;
+                }
 
-                Console.WriteLine($"{player.Name} has {player.Health} health");
-                Console.WriteLine($"{enemy.GetType().Name} has {enemy.Health} health");
-                Thread.Sleep(1000);
+                Debug.Log($"{player.Name} has {player.Health} HP | {enemy.Name} has {enemy.Health} HP");
+
+                yield return new WaitForSeconds(1f); // delay between turns
             }
-            if(GamePlayer.Health <= 0)
+
+            if (player.Health <= 0)
             {
                 GameOver();
+                yield break;
             }
-            Console.WriteLine("Battle Over!");
-            _worldManager.DisplayWorld( GamePlayer );
+
+            Debug.Log("<color=cyan>Battle Over!</color>");
+            _worldManager.DisplayWorld(player);
         }
 
         /// <summary>
-        /// Game end, ask if player wants to retry
+        /// Game end — ask if the player wants to retry (simplified for Unity).
         /// </summary>
         private void GameOver()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Another traveller swallowed by the dungeon");
-            Console.WriteLine("Would you like to try again?");
-            Console.WriteLine("[1] Yes");
-            Console.WriteLine("[2] No");
-
-            while (true)
-            {
-                switch (InputHelper.GetIntInput())
-                {
-                    case 1:
-                        Console.ResetColor();
-                        ResetProgression();
-                        Play();
-                        break;
-                    case 2:
-                        Console.WriteLine("Until Next time...");
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        continue;
-                       
-                }
-            }
-            
+            Debug.Log("<color=red>Another traveller swallowed by the dungeon.</color>");
+            Debug.Log("Restarting the game...");
+            ResetProgression();
+            Play();
         }
 
         private void ResetProgression()
@@ -206,6 +158,5 @@ namespace DiceGame.Scripts.CoreSystems
             GamePlayer = new Player();
             _worldManager.ClearWorld();
         }
-
     }
 }
