@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UnityEngine;
 namespace DiceGame.Scripts.Items.Weapons
 {
     internal class Spear : Weapon
     {
 
         
-        public Spear(string WeaponName, Durability durability, Range DamageRange) : base(WeaponName,durability, DamageRange) 
+        public Spear(string WeaponName, Durability durability, Vector2Int DamageRange) : base(WeaponName,durability, DamageRange) 
         {
             ActionPointCost = 2;
             _style = WeaponStyles.TwoHanded;

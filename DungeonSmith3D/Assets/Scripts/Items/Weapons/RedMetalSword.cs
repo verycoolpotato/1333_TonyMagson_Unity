@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace DiceGame.Scripts.Items.Weapons
 {
     internal class RedMetalSword : Weapon
     {
-        public RedMetalSword(string WeaponName, Durability durability, Range DamageRange) : base(WeaponName,durability, DamageRange) 
+        public RedMetalSword(string WeaponName, Durability durability, Vector2Int DamageRange) : base(WeaponName,durability, DamageRange) 
         {
             ActionPointCost = 2;
             _style = WeaponStyles.TwoHanded;
@@ -29,8 +30,8 @@ namespace DiceGame.Scripts.Items.Weapons
         {
             if (WeaponDurability != Durability.Unbreakable)
             {
-                //chance to damage
-                if (_random.Next(0, 3) == 0) 
+                // chance to damage (0,1,2) -> 1 in 3 chance
+                if (UnityEngine.Random.Range(0, 3) == 0)
                 {
                     if (WeaponDurability < Durability.Shattered)
                     {
@@ -45,14 +46,14 @@ namespace DiceGame.Scripts.Items.Weapons
                     }
                     else
                     {
-                        Die = new Range(0, 2);
+                        Die = new Vector2Int(0, 2);
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine($"{Name?.ToUpper()} IS SHATTERED");
                         Console.ResetColor();
                     }
-
                 }
             }
+
         }
 
     }

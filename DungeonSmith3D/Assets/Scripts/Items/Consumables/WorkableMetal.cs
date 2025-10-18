@@ -7,12 +7,13 @@ using DiceGame.Scripts.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 namespace DiceGame.Scripts.Items.Consumables
 {
     internal class WorkableMetal : Consumable
     {
         
-        public WorkableMetal (RarityTiers rarity) : base(rarity, new Range(1,1)) 
+        public WorkableMetal (RarityTiers rarity) : base(rarity, new Vector2Int (1,1)) 
         {
            
             Name = $"{rarity.ToString()} WorkableMetal"; 
@@ -38,7 +39,7 @@ namespace DiceGame.Scripts.Items.Consumables
         {
             if(Player.CurrentRoom is ForgeRoom)
             {
-                Inventory inventory = GameManager.Instance!.GamePlayer.inventory;
+                Inventory inventory = GameManager.Instance!.GamePlayer.PlayerInventory;
 
                 Console.WriteLine();
                 Console.WriteLine($"Would you like to forge {Name} into a weapon?");

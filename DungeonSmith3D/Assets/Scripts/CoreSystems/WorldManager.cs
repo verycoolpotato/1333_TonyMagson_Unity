@@ -2,12 +2,10 @@
 using DiceGame.Scripts.Rooms;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
-using System.Text;
-using static DiceGame.Scripts.Rooms.Room;
 
+using UnityEngine;
+using static DiceGame.Scripts.Rooms.Room;
 
 namespace DiceGame.Scripts.CoreSystems
 {
@@ -19,24 +17,19 @@ namespace DiceGame.Scripts.CoreSystems
         {
             { Direction.North, new Vector2(0, 1)},
             { Direction.East, new Vector2(1, 0)},
-            {Direction.South, new Vector2(0, -1)},
-            {Direction.West, new Vector2(-1, 0)}
+            { Direction.South, new Vector2(0, -1)},
+            { Direction.West, new Vector2(-1, 0)}
         };
 
+        private Room[,] _rooms = new Room[5, 5];
+        private System.Random random;
 
-        private Room[,] _rooms = new Room [5, 5];
-
-     
         public Room[,] Rooms() => _rooms;
-
-        private Random random;
 
         public WorldManager()
         {
             Instance = this;
-            
-            // Initialize Random instance once
-            random = new Random();
+            random = new System.Random();
         }
 
         internal void ClearWorld()
@@ -50,7 +43,7 @@ namespace DiceGame.Scripts.CoreSystems
         public void BuildWorld()
         {
             _rooms[0, 0] = new ForgeRoom();
-            
+
             for (int row = 0; row < _rooms.GetLength(0); row++)
             {
                 for (int column = 0; column < _rooms.GetLength(1); column++)
@@ -58,12 +51,11 @@ namespace DiceGame.Scripts.CoreSystems
                     if (_rooms[row, column] == null)
                     {
                         _rooms[row, column] = RoomTables.GetRandomRoom(RoomTables.StandardFloorLayout);
-
                         _rooms[row, column].SetWorld(this);
                     }
-                    
                 }
             }
+
             BuildDoors();
         }
 
@@ -74,39 +66,33 @@ namespace DiceGame.Scripts.CoreSystems
         {
             for (int column = 0; column < _rooms.GetLength(1); column++)
             {
-                Console.WriteLine();
                 for (int row = 0; row < _rooms.GetLength(0); row++)
                 {
-                    //Assign room refs
-                    foreach (KeyValuePair<Direction, Room> i in _rooms[row, column].RoomRefs)
+                    var room = _rooms[row, column];
+                    var directions = room.RoomRefs.Keys.ToList(); // snapshot
+
+                    foreach (var dir in directions)
                     {
-                 
-                        int x = row + (int)PossibleDirections[i.Key].X;
-                        x = Math.Clamp(x,0,_rooms.GetLength(0) -1);
+                        int x = row + (int)PossibleDirections[dir].x;
+                        int y = column + (int)PossibleDirections[dir].y;
 
-                        int y = column + (int)PossibleDirections[i.Key].Y;
-                        y = Math.Clamp(y, 0, _rooms.GetLength(1) -1);
-                        
-                            
-                            Room assignRoom = _rooms[x, y];
+                        x = Math.Clamp(x, 0, _rooms.GetLength(0) - 1);
+                        y = Math.Clamp(y, 0, _rooms.GetLength(1) - 1);
 
-                           _rooms[row, column].RoomRefs[i.Key] = assignRoom;
-                        
-                        
+                        Room assignRoom = _rooms[x, y];
+                        room.RoomRefs[dir] = assignRoom;
                     }
-
                 }
             }
         }
 
-       
         /// <summary>
-        /// Prints the world to the console
+        /// Prints the world to the Unity console
         /// </summary>
-        /// <param name="player"></param>
         public void DisplayWorld(Player player)
         {
             Room[,] rooms = _rooms;
+            string map = "";
 
             for (int row = 0; row < rooms.GetLength(0); row++)
             {
@@ -114,22 +100,14 @@ namespace DiceGame.Scripts.CoreSystems
                 {
                     var room = rooms[row, col];
                     if (Player.CurrentRoom == room)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("[P]");
-                        Console.ResetColor();
-                    }
+                        map += "[P]";
                     else
-                    {
-                        Console.Write(room.RoomIcon());
-                    }
+                        map += room.RoomIcon();
                 }
-                Console.WriteLine();
+                map += "\n";
             }
-            Console.WriteLine();
+
+            Debug.Log(map);
         }
-
-      
-
     }
 }

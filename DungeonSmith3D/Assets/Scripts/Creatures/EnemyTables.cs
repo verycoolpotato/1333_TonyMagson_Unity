@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace DiceGame.Scripts.Rooms
 {
@@ -14,9 +15,9 @@ namespace DiceGame.Scripts.Rooms
     {
         internal static List<KeyValuePair<Func<Enemy>, float>> CommonEnemies = new List<KeyValuePair<Func<Enemy>, float>>()
         {
-            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(20,"Goblin",new Range(8,12)), 4f),
-            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(10,"Skeleton",new Range(5,14)), 5f),
-            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(30,"Corpse Beast",new Range(5,10)), 2f),
+            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(20,"Goblin",new Vector2Int(8,12)), 4f),
+            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(10,"Skeleton",new Vector2Int(5,14)), 5f),
+            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(30,"Corpse Beast",new Vector2Int(5,10)), 2f),
         };
 
 

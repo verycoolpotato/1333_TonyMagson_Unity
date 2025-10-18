@@ -3,14 +3,15 @@ using DiceGame.Scripts.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 internal abstract class Item
 {
     internal string Name;
 
-    protected Range Die;
+    protected Vector2Int Die;
 
     public int ActionPointCost { get; protected set; }
-    internal Item(Range die)
+    internal Item(Vector2Int die)
     {
         Die = die;
     }
@@ -28,7 +29,7 @@ internal abstract class Item
     internal abstract void Use();
     protected abstract void DescribeItem();
 
-    internal Range DieRange()
+    internal Vector2Int DieRange()
     {
         return Die;
     }
@@ -51,7 +52,7 @@ internal abstract class Item
 
     protected void RemoveItem()
     {
-        Inventory inventory = GameManager.Instance!.GamePlayer.inventory;
+        Inventory inventory = GameManager.Instance!.GamePlayer.PlayerInventory;
 
         int index = inventory.GetInventory().IndexOf(this);
 

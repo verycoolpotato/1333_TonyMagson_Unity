@@ -52,7 +52,7 @@ namespace DiceGame.Scripts.CoreSystems
             _worldManager.DisplayWorld(GamePlayer);
 
             // Start player movement/input
-            GamePlayer.CheckInput();
+            GamePlayer.HandleInput();
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace DiceGame.Scripts.CoreSystems
                     Debug.Log($"You have {playerActions} Action Points left this turn.");
                     Debug.Log($"<color=red>Total Damage: {playerDamage}</color>");
 
-                    Item playerItem = player.inventory.CombatInventory();
+                    Item playerItem = player.PlayerInventory.CombatInventory();
 
                     if (playerItem.ActionPointCost <= playerActions)
                     {
@@ -154,7 +154,7 @@ namespace DiceGame.Scripts.CoreSystems
 
         private void ResetProgression()
         {
-            GamePlayer.inventory.ClearInventory();
+            GamePlayer.PlayerInventory.ClearInventory();
             GamePlayer = new Player();
             _worldManager.ClearWorld();
         }

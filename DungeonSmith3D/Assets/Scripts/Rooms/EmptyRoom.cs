@@ -27,7 +27,7 @@ namespace DiceGame.Scripts.Rooms
             Item item = LootTables.GetRandomItem(LootTables.CommonDrop);
             if (item != null)
             {
-                player!.inventory.PickupItem(item, true);
+                player!.PlayerInventory.PickupItem(item, true);
                 Console.WriteLine("You manage to scrounge up a small reward");
             }
             else
