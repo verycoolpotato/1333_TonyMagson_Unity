@@ -11,22 +11,33 @@ namespace DiceGame.Scripts.Creatures
     {
 
 
-
-        internal int Health;
+        private int _health;
+        internal int Health
+        {
+            get { return _health; }
+            set 
+            {
+                _health = value;
+                _health = Math.Clamp(_health, 0, _maxHealth);
+            
+            }
+        }
         internal string Name;
         protected int _maxHealth;
         internal Inventory inventory;
 
         protected Creature(int health)
         {
+            _maxHealth = health;
             Health = health;
-           _maxHealth = health;
+           
         }
         protected Creature(int health, string name)
         {
+            _maxHealth = health;
             Health = health;
             Name = name;
-            _maxHealth = health;
+            
         }
 
         

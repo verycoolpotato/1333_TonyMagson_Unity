@@ -29,7 +29,7 @@ namespace DiceGame.Scripts.Rooms
         /// <param name="enemyTable"> table from EnemyTables</param>
         /// <returns></returns>
         public static Enemy GetRandomEnemy(List<KeyValuePair<Func<Enemy>, float>> enemyTable)
-        {/*
+        {
             float totalWeight = enemyTable.Sum(r => r.Value);
             float randomValue = Random.Shared.NextSingle() * totalWeight;
 
@@ -41,8 +41,6 @@ namespace DiceGame.Scripts.Rooms
             }
 
             return enemyTable.Last().Key(); 
-            */
-            return null;
         }
 
 

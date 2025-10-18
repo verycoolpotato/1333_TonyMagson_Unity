@@ -3,9 +3,8 @@ using DiceGame.Scripts.CoreSystems;
 using DiceGame.Scripts.Creatures;
 using DiceGame.Scripts.HelperClasses;
 using DiceGame.Scripts.Rooms;
-using System.Linq;
-using System;
-using System.Collections.Generic;
+
+
 namespace DiceGame.Scripts.Items.Consumables
 {
     internal class WorkableMetal : Consumable
@@ -58,7 +57,7 @@ namespace DiceGame.Scripts.Items.Consumables
                     }
                     break;
                 }
-                foreach (Item item in inventory.GetInventory())
+                foreach (Item? item in inventory.GetInventory())
                 {
                     if (item == null)
                         break; 
@@ -78,9 +77,9 @@ namespace DiceGame.Scripts.Items.Consumables
                 {
                     
                     int inputType = InputHelper.GetIntInput();
-                    Item forgedItem = null;
+                    Item? forgedItem = null;
                     Console.WriteLine("Forging a weapon...");
-                   
+                    Thread.Sleep(1000);
                     switch (inputType)
                     {
 

@@ -1,8 +1,7 @@
 ﻿using DiceGame.Scripts.Items.Consumables;
 using DiceGame.Scripts.Items.Weapons;
 
-using System;
-using System.Collections.Generic;
+
 namespace DiceGame.Scripts.Items
 {
     internal static class LootTables
@@ -91,7 +90,6 @@ namespace DiceGame.Scripts.Items
         /// <returns></returns>
         public static Item GetRandomItem(List<KeyValuePair<Func<Item>, float>> lootTable)
         {
-            /*
             float totalWeight = lootTable.Sum(i => i.Value);
             float randomValue = Random.Shared.NextSingle() * totalWeight;
 
@@ -103,8 +101,6 @@ namespace DiceGame.Scripts.Items
             }
 
             return lootTable.Last().Key();
-            */
-            return null;
         }
 
 

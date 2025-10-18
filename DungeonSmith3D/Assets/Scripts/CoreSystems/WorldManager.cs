@@ -13,7 +13,7 @@ namespace DiceGame.Scripts.CoreSystems
 {
     internal class WorldManager
     {
-        public static WorldManager Instance { get; private set; }
+        public static WorldManager? Instance { get; private set; }
 
         public Dictionary<Direction, Vector2> PossibleDirections = new Dictionary<Direction, Vector2>()
         {
@@ -38,13 +38,19 @@ namespace DiceGame.Scripts.CoreSystems
             // Initialize Random instance once
             random = new Random();
         }
+
+        internal void ClearWorld()
+        {
+            _rooms = new Room[5, 5];
+        }
+
         /// <summary>
         /// Generates the world
         /// </summary>
         public void BuildWorld()
         {
             _rooms[0, 0] = new ForgeRoom();
-
+            
             for (int row = 0; row < _rooms.GetLength(0); row++)
             {
                 for (int column = 0; column < _rooms.GetLength(1); column++)

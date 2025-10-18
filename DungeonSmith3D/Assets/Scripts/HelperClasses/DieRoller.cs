@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace DiceGame.Scripts.HelperClasses
-
+﻿namespace DiceGame.Scripts.HelperClasses
 {
     public class DieRoller
     {

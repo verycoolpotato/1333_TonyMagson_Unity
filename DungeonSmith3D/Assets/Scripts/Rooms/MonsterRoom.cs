@@ -17,7 +17,7 @@ namespace DiceGame.Scripts.Rooms
             else
                 return "A creature lays dead on the floor";
         }
-        public override void OnRoomSearched(Player player = null)
+        public override void OnRoomSearched(Player? player = null)
         {
             if(_empty)
             {

@@ -10,7 +10,7 @@ namespace DiceGame.Scripts.CoreSystems
     internal class Inventory
     {
         // inventory stores name and value
-        private List<Item> _inventory = new List<Item>(9) {null,null,null,null, null, null, null, null, null};
+        private List<Item?> _inventory = new List<Item?>(9) {null,null,null,null, null, null, null, null, null};
 
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace DiceGame.Scripts.CoreSystems
         /// </summary>
         public void PickupItem(Item GrabbedItem, bool AnnouncePickup)
         {
-            foreach (Item item in _inventory)
+            foreach (Item? item in _inventory)
             {
                 if (item == null)
                 {
@@ -81,7 +81,7 @@ namespace DiceGame.Scripts.CoreSystems
 
             for (int i = 0; i < _inventory.Count; i++)
             {
-                Item item = _inventory[i];
+                Item? item = _inventory[i];
                 if(item is Fists fist)
                 {
                     Console.Write($"[{i + 1}] ");
@@ -196,7 +196,7 @@ namespace DiceGame.Scripts.CoreSystems
         /// <summary>
         /// Returns the inventory
         /// </summary>
-        public List<Item> GetInventory()
+        public List<Item?> GetInventory()
         {
             return _inventory;
         }

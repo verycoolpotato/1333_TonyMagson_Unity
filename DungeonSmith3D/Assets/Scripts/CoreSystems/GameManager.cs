@@ -5,13 +5,14 @@ using DiceGame.Scripts.Items.Weapons;
 using System;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 
 namespace DiceGame.Scripts.CoreSystems
 {
     internal class GameManager
     {
-        public static GameManager Instance { get; private set; }
+        public static GameManager? Instance { get; private set; }
 
       
 
@@ -167,12 +168,43 @@ namespace DiceGame.Scripts.CoreSystems
             _worldManager.DisplayWorld( GamePlayer );
         }
 
-
+        /// <summary>
+        /// Game end, ask if player wants to retry
+        /// </summary>
         private void GameOver()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Another traveller swallowed by the dungeon");
-            Environment.Exit(0);
+            Console.WriteLine("Would you like to try again?");
+            Console.WriteLine("[1] Yes");
+            Console.WriteLine("[2] No");
+
+            while (true)
+            {
+                switch (InputHelper.GetIntInput())
+                {
+                    case 1:
+                        Console.ResetColor();
+                        ResetProgression();
+                        Play();
+                        break;
+                    case 2:
+                        Console.WriteLine("Until Next time...");
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        continue;
+                       
+                }
+            }
+            
+        }
+
+        private void ResetProgression()
+        {
+            GamePlayer.inventory.ClearInventory();
+            GamePlayer = new Player();
+            _worldManager.ClearWorld();
         }
 
     }

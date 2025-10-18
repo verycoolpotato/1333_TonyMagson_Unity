@@ -18,7 +18,8 @@ namespace DiceGame.Scripts.Rooms
             new KeyValuePair<Func<Room>, float>(() => new MonsterRoom(), 5f),
             new KeyValuePair<Func<Room>, float>(() => new EmptyRoom(), 10f),
             new KeyValuePair<Func<Room>, float>(() => new ForgeRoom(), 2f),
-          
+            
+
         };
 
 
@@ -32,7 +33,6 @@ namespace DiceGame.Scripts.Rooms
         /// <returns></returns>
         public static Room GetRandomRoom(List<KeyValuePair<Func<Room>, float>> roomTable)
         {
-            /*
             float totalWeight = roomTable.Sum(r => r.Value);
             float randomValue = Random.Shared.NextSingle() * totalWeight;
 
@@ -44,8 +44,6 @@ namespace DiceGame.Scripts.Rooms
             }
 
             return roomTable.Last().Key(); 
-            */
-            return null;
         }
 
 

@@ -1,11 +1,9 @@
 ﻿using DiceGame.Scripts.CoreSystems;
 using DiceGame.Scripts.HelperClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 internal abstract class Item
 {
-    internal string Name;
+    internal string? Name;
 
     protected Range Die;
 

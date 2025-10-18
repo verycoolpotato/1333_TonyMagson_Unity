@@ -17,7 +17,7 @@ namespace DiceGame.Scripts.Rooms
             return "A dimly lit, mostly empty room";
 
         }
-        public override void OnRoomSearched(Player player = null)
+        public override void OnRoomSearched(Player? player = null)
         {
             if(_empty)
             {
