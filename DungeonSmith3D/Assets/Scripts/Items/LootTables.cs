@@ -1,5 +1,6 @@
 ﻿using DiceGame.Scripts.Items.Consumables;
 using DiceGame.Scripts.Items.Weapons;
+using DiceGame.Scripts.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,19 +91,19 @@ namespace DiceGame.Scripts.Items
         /// </summary>
         /// <param name="lootTable">Loot table from the loot tables class</param>
         /// <returns></returns>
-        public static Item GetRandomItem(List<KeyValuePair<Func<Item>, float>> lootTable)
+        public static Item GetRandomItem(List<KeyValuePair<Func<Item>, float>> itemTable)
         {
-            float totalWeight = lootTable.Sum(i => i.Value);
-            float randomValue = Random.Shared.NextSingle() * totalWeight;
+            float totalWeight = itemTable.Sum(r => r.Value);
+            float randomValue = UnityEngine.Random.value * totalWeight;
 
-            foreach (var item in lootTable)
+            foreach (var item in itemTable)
             {
                 if (randomValue < item.Value)
-                    return item.Key(); 
+                    return item.Key();
                 randomValue -= item.Value;
             }
 
-            return lootTable.Last().Key();
+            return itemTable.Last().Key();
         }
 
 

@@ -31,16 +31,16 @@ namespace DiceGame.Scripts.Rooms
         public static Enemy GetRandomEnemy(List<KeyValuePair<Func<Enemy>, float>> enemyTable)
         {
             float totalWeight = enemyTable.Sum(r => r.Value);
-            float randomValue = Random.Shared.NextSingle() * totalWeight;
+            float randomValue = UnityEngine.Random.value * totalWeight;
 
             foreach (var enemy in enemyTable)
             {
                 if (randomValue < enemy.Value)
-                    return enemy.Key(); 
+                    return enemy.Key();
                 randomValue -= enemy.Value;
             }
 
-            return enemyTable.Last().Key(); 
+            return enemyTable.Last().Key();
         }
 
 

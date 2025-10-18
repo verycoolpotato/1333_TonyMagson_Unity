@@ -1,11 +1,8 @@
-﻿using DiceGame.Scripts.Items.Consumables;
-using DiceGame.Scripts.Items.Weapons;
+﻿using UnityEngine; 
 using DiceGame.Scripts.Rooms.TreasureRooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiceGame.Scripts.Rooms
 {
@@ -34,16 +31,16 @@ namespace DiceGame.Scripts.Rooms
         public static Room GetRandomRoom(List<KeyValuePair<Func<Room>, float>> roomTable)
         {
             float totalWeight = roomTable.Sum(r => r.Value);
-            float randomValue = Random.Shared.NextSingle() * totalWeight;
+            float randomValue = UnityEngine.Random.value * totalWeight; 
 
             foreach (var room in roomTable)
             {
                 if (randomValue < room.Value)
-                    return room.Key(); 
+                    return room.Key();
                 randomValue -= room.Value;
             }
 
-            return roomTable.Last().Key(); 
+            return roomTable.Last().Key();
         }
 
 
