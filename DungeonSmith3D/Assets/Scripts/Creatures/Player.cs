@@ -37,23 +37,26 @@ namespace DiceGame.Scripts.Creatures
             }
         }
 
-        // Input handling now called manually from a MonoBehaviour if needed
+      
         public void HandleInput()
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-                Move(Room.Direction.North);
-            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-                Move(Room.Direction.South);
-            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-                Move(Room.Direction.West);
-            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-                Move(Room.Direction.East);
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                CurrentRoom?.OnRoomSearched(this);
+            Move(Room.Direction.East);
+            PlayerInventory.ViewInventory(Health, _maxHealth);
+            //if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            //    Move(Room.Direction.North);
+            //else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            //    Move(Room.Direction.South);
+            //else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            //    Move(Room.Direction.West);
+            //else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            //    Move(Room.Direction.East);
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-                PlayerInventory.ViewInventory(Health, _maxHealth);
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //    CurrentRoom?.OnRoomSearched(this);
+
+            //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //    PlayerInventory.ViewInventory(Health, _maxHealth);
         }
 
         public void Move(Room.Direction direction)

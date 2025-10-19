@@ -28,19 +28,32 @@ namespace DiceGame.Scripts.Rooms
         /// </summary>
         /// <param name="roomTable">Room table from the RoomTables</param>
         /// <returns></returns>
-        public static Room GetRandomRoom(List<KeyValuePair<Func<Room>, float>> roomTable)
+        public static Room GetRandomRoom(List<KeyValuePair<System.Func<Room>, float>> roomTable)
         {
-            float totalWeight = roomTable.Sum(r => r.Value);
-            float randomValue = UnityEngine.Random.value * totalWeight; 
+            if (roomTable == null || roomTable.Count == 0)
+                return new EmptyRoom(); // fallback
 
-            foreach (var room in roomTable)
+            // Sum weights
+            float totalWeight = 0f;
+            foreach (var entry in roomTable)
+                totalWeight += Mathf.Max(entry.Value, 0f); // ignore negative weights
+
+            if (totalWeight <= 0f)
+                return new EmptyRoom(); // fallback if all weights are zero
+
+            // Pick a random value
+            float randomValue = UnityEngine.Random.value * totalWeight;
+
+            foreach (var entry in roomTable)
             {
-                if (randomValue < room.Value)
-                    return room.Key();
-                randomValue -= room.Value;
+                if (randomValue < entry.Value)
+                    return entry.Key();
+
+                randomValue -= entry.Value;
             }
 
-            return roomTable.Last().Key();
+            // Fallback: last room
+            return roomTable[roomTable.Count - 1].Key();
         }
 
 

@@ -31,17 +31,30 @@ namespace DiceGame.Scripts.Rooms
         /// <returns></returns>
         public static Enemy GetRandomEnemy(List<KeyValuePair<Func<Enemy>, float>> enemyTable)
         {
-            float totalWeight = enemyTable.Sum(r => r.Value);
+            if (enemyTable == null || enemyTable.Count == 0)
+                return null; // fallback if no enemies exist
+
+            // Sum all positive weights
+            float totalWeight = 0f;
+            foreach (var entry in enemyTable)
+                totalWeight += Mathf.Max(entry.Value, 0f);
+
+            if (totalWeight <= 0f)
+                return null; // fallback if all weights are zero
+
+            // Pick a random value
             float randomValue = UnityEngine.Random.value * totalWeight;
 
-            foreach (var enemy in enemyTable)
+            foreach (var entry in enemyTable)
             {
-                if (randomValue < enemy.Value)
-                    return enemy.Key();
-                randomValue -= enemy.Value;
+                if (randomValue < entry.Value)
+                    return entry.Key();
+
+                randomValue -= entry.Value;
             }
 
-            return enemyTable.Last().Key();
+            // Fallback: return the last enemy
+            return enemyTable[enemyTable.Count - 1].Key();
         }
 
 

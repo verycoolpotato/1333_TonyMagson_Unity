@@ -94,19 +94,33 @@ namespace DiceGame.Scripts.Items
         /// <returns></returns>
         public static Item GetRandomItem(List<KeyValuePair<Func<Item>, float>> itemTable)
         {
-            float totalWeight = itemTable.Sum(r => r.Value);
+            if (itemTable == null || itemTable.Count == 0)
+                return null; // fallback: no items available
+
+            // Sum all positive weights
+            float totalWeight = 0f;
+            foreach (var entry in itemTable)
+                totalWeight += Mathf.Max(entry.Value, 0f);
+
+            if (totalWeight <= 0f)
+                return null; // fallback if all weights are zero
+
+            // Pick a random value
             float randomValue = UnityEngine.Random.value * totalWeight;
 
-            foreach (var item in itemTable)
+            foreach (var entry in itemTable)
             {
-                if (randomValue < item.Value)
-                    return item.Key();
-                randomValue -= item.Value;
+                if (randomValue < entry.Value)
+                    return entry.Key();
+
+                randomValue -= entry.Value;
             }
 
-            return itemTable.Last().Key();
+            // Fallback: return the last item
+            return itemTable[itemTable.Count - 1].Key();
         }
-
-
     }
+
+
 }
+

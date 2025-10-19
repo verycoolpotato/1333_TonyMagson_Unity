@@ -56,7 +56,7 @@ internal abstract class Item
 
         int index = inventory.GetInventory().IndexOf(this);
 
-        inventory.RemoveItemindex(index);
+        inventory.RemoveItemIndex(index);
     }
 
     internal void ShowDetails()
