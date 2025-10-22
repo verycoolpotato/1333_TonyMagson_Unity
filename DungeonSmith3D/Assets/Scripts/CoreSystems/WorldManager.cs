@@ -13,13 +13,14 @@ namespace DiceGame.Scripts.CoreSystems
     {
         public static WorldManager Instance { get; private set; }
 
-        public Dictionary<Direction, Vector2> PossibleDirections = new Dictionary<Direction, Vector2>()
+        public Dictionary<Direction, Vector3> PossibleDirections = new Dictionary<Direction, Vector3>()
         {
-            { Direction.North, new Vector2(0, 1)},
-            { Direction.East, new Vector2(1, 0)},
-            { Direction.South, new Vector2(0, -1)},
-            { Direction.West, new Vector2(-1, 0)}
+            { Direction.North, new Vector3(0, 0, 1)},
+            { Direction.East, new Vector3(1,0, 0)},
+            { Direction.South, new Vector3(0,0, -1)},
+            { Direction.West, new Vector3(-1,0, 0)}
         };
+
 
         private Room[,] _rooms = new Room[5, 5];
         private System.Random random;
@@ -48,11 +49,14 @@ namespace DiceGame.Scripts.CoreSystems
             {
                 for (int column = 0; column < _rooms.GetLength(1); column++)
                 {
+                    
                     if (_rooms[row, column] == null)
                     {
                         _rooms[row, column] = RoomTables.GetRandomRoom(RoomTables.StandardFloorLayout);
                         _rooms[row, column].SetWorld(this);
+
                     }
+                    GameManager.Instance.Builder.PlaceRoom(_rooms[row, column], new Vector3(row, 0, column));
                 }
             }
 
@@ -74,12 +78,12 @@ namespace DiceGame.Scripts.CoreSystems
                     foreach (var dir in directions)
                     {
                         int x = row + (int)PossibleDirections[dir].x;
-                        int y = column + (int)PossibleDirections[dir].y;
+                        int z = column + (int)PossibleDirections[dir].z;
 
                         x = Math.Clamp(x, 0, _rooms.GetLength(0) - 1);
-                        y = Math.Clamp(y, 0, _rooms.GetLength(1) - 1);
+                        z = Math.Clamp(z, 0, _rooms.GetLength(1) - 1);
 
-                        Room assignRoom = _rooms[x, y];
+                        Room assignRoom = _rooms[x, z];
                         room.RoomRefs[dir] = assignRoom;
                     }
                 }

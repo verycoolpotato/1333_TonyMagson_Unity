@@ -17,6 +17,9 @@ namespace DiceGame.Scripts.Creatures
 
         public Inventory PlayerInventory;
 
+        private PlayerPosition _pos = GameManager.Instance.PlayerPosition;
+
+
         // Constructor replaces Awake
         public Player(string name = "Player", int health = 30)
             : base(health, name)
@@ -34,23 +37,17 @@ namespace DiceGame.Scripts.Creatures
             if (_worldManager != null)
             {
                 CurrentRoom = _worldManager.Rooms()[(int)_currentLocation.x, (int)_currentLocation.y];
+                
             }
         }
 
       
         public void HandleInput()
         {
-
-            Move(Room.Direction.East);
-            PlayerInventory.ViewInventory(Health, _maxHealth);
-            //if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-            //    Move(Room.Direction.North);
-            //else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-            //    Move(Room.Direction.South);
-            //else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            //    Move(Room.Direction.West);
-            //else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            //    Move(Room.Direction.East);
+            
+            //Move(Room.Direction.West);
+            //PlayerInventory.ViewInventory(Health, _maxHealth);
+           
 
             //if (Input.GetKeyDown(KeyCode.Alpha1))
             //    CurrentRoom?.OnRoomSearched(this);
@@ -66,6 +63,10 @@ namespace DiceGame.Scripts.Creatures
                 Debug.Log("That's a wall");
                 return;
             }
+
+
+
+            _pos.MovePlayer(_worldManager.PossibleDirections[direction]);
 
             // Exit current room
             CurrentRoom.OnRoomExit();

@@ -9,6 +9,9 @@ namespace DiceGame.Scripts.CoreSystems
 {
     internal class GameManager : MonoBehaviour
     {
+
+        public WorldBuilder Builder;
+        public PlayerPosition PlayerPosition;
         public static GameManager Instance { get; private set; }
 
         private DieRoller _roller = new DieRoller();
