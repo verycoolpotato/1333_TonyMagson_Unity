@@ -33,7 +33,7 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
 
         protected virtual void Loot(Player player)
         {
-            player!.inventory.PickupItem(LootTables.GetRandomItem(LootTables.CommonTreasure), true);
+            player!.PlayerInventory.PickupItem(LootTables.GetRandomItem(LootTables.CommonTreasure), true);
         }
 
         public override string RoomIcon()

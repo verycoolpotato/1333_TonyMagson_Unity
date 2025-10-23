@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+
+using UnityEngine;
 
 namespace DiceGame.Scripts.Creatures
 {
     internal class Enemy : Creature
     {
-        public Enemy(int health, string name, Range Damage) : base(health,name) 
+        public Enemy(int health, string name, Vector2Int Damage) : base(health,name) 
         {
             _baseDamage = Damage;
-            _random = new Random();
+           
         
         }
-        private Random _random;
-        private Range _baseDamage;
-        internal Range ModifiedDamage;
+        
+        private Vector2Int _baseDamage;
+        internal Vector2Int ModifiedDamage;
         private enum AttackWeight
         {
             Light =1,
@@ -31,23 +28,27 @@ namespace DiceGame.Scripts.Creatures
         /// <returns></returns>
         internal int NextAttack()
         {
-
+            // Pick a random attack weight
             AttackWeight[] values = (AttackWeight[])Enum.GetValues(typeof(AttackWeight));
-            AttackWeight weight = values[_random.Next(values.Length)];
+            AttackWeight weight = values[UnityEngine.Random.Range(0, values.Length)];
 
-            ModifiedDamage = new Range(_baseDamage.Start.Value + (int)weight, _baseDamage.End.Value + (int)weight);
+            // Modify damage based on weight
+            ModifiedDamage = new Vector2Int(
+                _baseDamage.x + (int)weight,
+                _baseDamage.y + (int)weight
+            );
 
-            int damage = _random.Next(ModifiedDamage.Start.Value,ModifiedDamage.End.Value);
+            // Roll for damage using Unity's Random.Range (inclusive-exclusive for ints)
+            int damage = UnityEngine.Random.Range(ModifiedDamage.x, ModifiedDamage.y + 1);
 
-            
+            // Output to console
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{Name} prepares a {weight} Attack ({ModifiedDamage.Start.Value}-{ModifiedDamage.End.Value})");
+            Console.WriteLine($"{Name} prepares a {weight} Attack ({ModifiedDamage.x}-{ModifiedDamage.y})");
             Console.ResetColor();
-            
 
             return damage;
-
         }
+
 
     }
 }

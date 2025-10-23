@@ -3,98 +3,80 @@ using DiceGame.Scripts.Items;
 using DiceGame.Scripts.Items.Consumables;
 using DiceGame.Scripts.Items.Weapons;
 using DiceGame.Scripts.Rooms;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-
+using UnityEngine;
 
 namespace DiceGame.Scripts.Creatures
 {
     internal class Player : Creature
     {
-
         private WorldManager _worldManager;
-       internal static Room CurrentRoom { get; set; }
+        internal static Room CurrentRoom { get; private set; }
 
-        private Vector2 _currentLocation = new Vector2(0,0);
+        private Vector2 _currentLocation = Vector2.zero;
 
-        
+        public Inventory PlayerInventory;
 
-        public Player(int health = 30, string name = "Player") : base(health, name)
+        private PlayerPosition _pos = GameManager.Instance.PlayerPosition;
+
+
+        // Constructor replaces Awake
+        public Player(string name = "Player", int health = 30)
+            : base(health, name)
         {
             _worldManager = WorldManager.Instance;
-            CurrentRoom = _worldManager!.Rooms()[(int)_currentLocation.X, (int)_currentLocation.Y];
-            inventory = new Inventory() { };
+            PlayerInventory = new Inventory();
 
-
+            // Add starting items
+            PlayerInventory.PickupItem(new Fists(), false);
             
-            inventory.PickupItem(new Fists(),false);
-            inventory.PickupItem(new Shortsword($"{Name}'s Shortsword", Weapon.Durability.Sturdy, new Range(5,8)), false);
-            inventory.PickupItem(new WorkableMetal(Consumable.RarityTiers.Common), false);
+            PlayerInventory.PickupItem(new Shortsword($"{name}'s Shortsword", Weapon.Durability.Sturdy, new Vector2Int(5, 8)), false);
+            PlayerInventory.PickupItem(new WorkableMetal(Consumable.RarityTiers.Common), false);
+
+            // Set starting room
+            if (_worldManager != null)
+            {
+                CurrentRoom = _worldManager.Rooms()[(int)_currentLocation.x, (int)_currentLocation.y];
+                
+            }
         }
 
-        public void CheckInput()
+      
+        public void HandleInput()
         {
-            while (true)
-            {
-                Console.WriteLine("Use arrow keys to move");
-                Console.WriteLine("");
-                Console.WriteLine("[1] Search");
-                Console.WriteLine("[2] Inventory");
-                Console.WriteLine("");
-                var key = Console.ReadKey(true); 
+            
+            //Move(Room.Direction.West);
+            //PlayerInventory.ViewInventory(Health, _maxHealth);
+           
 
-                switch (key.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        Move(Room.Direction.West);
-                        break;
-                    case ConsoleKey.DownArrow:
-                        Move(Room.Direction.East);
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        Move(Room.Direction.South);
-                        break;
-                    case ConsoleKey.RightArrow:
-                        Move(Room.Direction.North);
-                        break;
-                    case ConsoleKey.D1:
-                        CurrentRoom!.OnRoomSearched(this);
-                        break;
-                    case ConsoleKey.D2:
-                        inventory.ViewInventory(Health,_maxHealth);
-                        break;
-                    default:
-                        continue;
-                }
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //    CurrentRoom?.OnRoomSearched(this);
+
+            //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //    PlayerInventory.ViewInventory(Health, _maxHealth);
         }
 
         public void Move(Room.Direction direction)
         {
-            //room values are clamped so if a room would reference a room that doesnt exist, it instead references itself
             if (CurrentRoom!.RoomRefs[direction] == CurrentRoom)
             {
-                Console.WriteLine("Thats a wall");
+                Debug.Log("That's a wall");
                 return;
             }
-            
-                // Exit the current room first
-
-                CurrentRoom!.OnRoomExit();
-
-                CurrentRoom = CurrentRoom!.RoomRefs[direction];
 
 
-                _worldManager!.DisplayWorld(this);
 
-                // Enter the new room
-                CurrentRoom!.OnRoomEnter();
-            
+            _pos.MovePlayer(_worldManager.PossibleDirections[direction]);
 
+            // Exit current room
+            CurrentRoom.OnRoomExit();
 
-               
+            CurrentRoom = CurrentRoom.RoomRefs[direction];
+
+            _worldManager?.DisplayWorld(this);
+
+            // Enter new room
+            CurrentRoom.OnRoomEnter();
         }
     }
 }

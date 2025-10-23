@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using static DiceGame.Scripts.Items.Weapons.Weapon;
 
 namespace DiceGame.Scripts.Items.Weapons
@@ -12,7 +13,7 @@ namespace DiceGame.Scripts.Items.Weapons
     {
 
        
-        public Fists() : base("Guard",0, new Range(1, 4)) 
+        public Fists() : base("Guard",0, new Vector2Int (1, 4)) 
         {
             ActionPointCost = 1;
             CommandActions.Clear();
@@ -28,7 +29,7 @@ namespace DiceGame.Scripts.Items.Weapons
         internal override int Attack(DieRoller roller)
         {
 
-            int blockAmount = roller.Roll(Die.Start.Value,Die.End.Value);
+            int blockAmount = roller.Roll(Die.x,Die.y);
 
             Console.WriteLine($"You brace for impact, rolled a {blockAmount}");
             Console.WriteLine();
@@ -42,7 +43,7 @@ namespace DiceGame.Scripts.Items.Weapons
             Console.ResetColor();
 
             Console.WriteLine();
-            Console.WriteLine($"Damage: {Die.Start.Value}-{Die.End.Value}");
+            Console.WriteLine($"Damage: {Die.x}-{Die.y}");
            
             Console.WriteLine();
         }

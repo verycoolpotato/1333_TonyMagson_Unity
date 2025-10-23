@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using UnityEngine;
 
 namespace DiceGame.Scripts.Items.Consumables
 {
     internal abstract class Consumable : Item
     {
         
-        public Consumable(RarityTiers rarity, Range die) : base (die)
+        public Consumable(RarityTiers rarity, Vector2Int die) : base (die)
         {
           Rarity = rarity;
          

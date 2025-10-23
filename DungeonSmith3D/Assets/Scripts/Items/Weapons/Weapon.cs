@@ -1,9 +1,7 @@
 ﻿using DiceGame.Scripts.HelperClasses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using UnityEngine;
 
 namespace DiceGame.Scripts.Items.Weapons
 {
@@ -34,22 +32,22 @@ namespace DiceGame.Scripts.Items.Weapons
         {
             Console.WriteLine();
             Console.WriteLine($"Weapon - {_style}");
-            Console.WriteLine($"Damage: {Die.Start.Value}-{Die.End.Value}");
+            Console.WriteLine($"Damage: {Die.x}-{Die.y}");
             Console.WriteLine($"Durability: {WeaponDurability}");
             Console.WriteLine();
         }
 
         protected WeaponStyles _style;
-        private Range _defaultDamage;
+        private Vector2Int _defaultDamage;
         internal Durability WeaponDurability;
-        protected Random _random;
-        internal Weapon(string WeaponName, Durability durability, Range die) : base(die)
+        
+        internal Weapon(string WeaponName, Durability durability, Vector2Int die) : base(die)
         {
             CommandActions["Rename"] = Rename;
             _defaultDamage = Die;
             Name = WeaponName;
             WeaponDurability = durability;
-            _random = new Random();
+           
            
         }
 
@@ -60,7 +58,7 @@ namespace DiceGame.Scripts.Items.Weapons
         /// <returns></returns>
         internal virtual int Attack(DieRoller roller)
         {
-          int roll = roller.Roll(Die.Start.Value,Die.End.Value);
+          int roll = roller.Roll(Die.x,Die.y);
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"{Name} rolls {roll}");
@@ -82,12 +80,12 @@ namespace DiceGame.Scripts.Items.Weapons
         /// </summary>
         internal override void Use()
         {
-            
+
 
             if (WeaponDurability != Durability.Unbreakable)
             {
-                //chance to damage
-                if (_random.Next(0, 2) == 0) 
+                // chance to damage (0 or 1)
+                if (UnityEngine.Random.Range(0, 2) == 0)
                 {
                     if (WeaponDurability < Durability.Shattered)
                     {
@@ -100,15 +98,14 @@ namespace DiceGame.Scripts.Items.Weapons
                     }
                     else
                     {
-                        
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine($"{Name?.ToUpper()} IS SHATTERED");
                         Console.ResetColor();
-                        Die = new Range(2,4);
+                        Die = new Vector2Int(2, 4);
                     }
-                   
                 }
             }
+
         }
 
         internal void Repair()

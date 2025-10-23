@@ -13,7 +13,7 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
 
         protected override void Loot(Player player)
         {
-            player!.inventory.PickupItem(LootTables.GetRandomItem(LootTables.RareTreasure), true);
+            player!.PlayerInventory.PickupItem(LootTables.GetRandomItem(LootTables.RareTreasure), true);
         }
 
     }
