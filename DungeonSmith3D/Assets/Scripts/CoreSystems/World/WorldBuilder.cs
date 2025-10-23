@@ -70,9 +70,10 @@ public class WorldBuilder : MonoBehaviour
                 room = RoomPrefabs[0];
                 break;
         }
-       RoomMono ThisRoom = Instantiate(room,Location * RoomSize,Quaternion.identity);
-        
 
+
+         RoomMono ThisRoom = Instantiate(room, Location * RoomSize, Quaternion.identity);
+        
         _visibleRooms[(int)Location.x, (int)Location.z] = ThisRoom;
         
     }

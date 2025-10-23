@@ -377,10 +377,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomPrefabs:
-  - {fileID: 2450941082826840766, guid: 614eff35a96bed547a8ed0486adb1ee1, type: 3}
-  - {fileID: 2450941082826840766, guid: 99d27e4840c355747b0ef37489275ff9, type: 3}
-  - {fileID: 2450941082826840766, guid: 3ab9cb13472b7ae479fadb68dfddd1b1, type: 3}
-  - {fileID: 2450941082826840766, guid: 9a232bb4ab8be7548ba44bf2fdebc07a, type: 3}
+  - {fileID: 4599787905316850414, guid: 1c34a9f218461d4499d94ac8c5dcbd18, type: 3}
+  - {fileID: 4905393476026888169, guid: b7547fb5c329c814fbeb4d29e84a1953, type: 3}
+  - {fileID: 1506680775025529653, guid: 2186a1e42eab1f54a9bba71eb1b4bc70, type: 3}
+  - {fileID: 4599787905316850414, guid: 1c34a9f218461d4499d94ac8c5dcbd18, type: 3}
+  RoomSize: 10
 --- !u!114 &1936009815
 MonoBehaviour:
   m_ObjectHideFlags: 0
