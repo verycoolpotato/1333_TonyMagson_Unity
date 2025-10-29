@@ -3,63 +3,57 @@ using DiceGame.Scripts.Rooms;
 using DiceGame.Scripts.Rooms.TreasureRooms;
 using UnityEngine;
 
-
 public class WorldBuilder : MonoBehaviour
 {
     [SerializeField] RoomMono[] RoomPrefabs;
     [SerializeField] private float RoomSize = 10;
     private RoomMono[,] _visibleRooms;
+
     public void CreateMap()
     {
-        _visibleRooms = new RoomMono[GameManager.Instance.RoomGrid, GameManager.Instance.RoomGrid];
+        int grid = GameManager.Instance.RoomGrid;
+        _visibleRooms = new RoomMono[grid, grid];
 
-        for (int z = 0; z < GameManager.Instance.RoomGrid; z++)
+        for (int x = 0; x < grid; x++)
         {
-            for (int x = 0; x < GameManager.Instance.RoomGrid; x++)
+            for (int z = 0; z < grid; z++)
             {
-                Vector3 coords = new Vector3(x,0,z);
-
-                Room room = WorldManager.Instance.Rooms()[z, x];
-
+                Vector3 coords = new Vector3(x, 0, z);
+                Room room = WorldManager.Instance.Rooms()[x, z]; 
                 PlaceRoom(room, coords);
-
             }
         }
+
         OpenDoors();
     }
 
     internal void OpenDoors()
     {
-        for (int x = 0; x < GameManager.Instance.RoomGrid; x++)
+        int grid = GameManager.Instance.RoomGrid;
+
+        for (int x = 0; x < grid; x++)
         {
-            for (int z = 0; z < GameManager.Instance.RoomGrid; z++)
+            for (int z = 0; z < grid; z++)
             {
-               
-                Room room = WorldManager.Instance.Rooms()[x, z];
+                RoomMono north = z + 1 < grid ? _visibleRooms[x, z + 1] : null;
+                RoomMono south = z - 1 >= 0 ? _visibleRooms[x, z - 1] : null;
+                RoomMono east = x + 1 < grid ? _visibleRooms[x + 1, z] : null;
+                RoomMono west = x - 1 >= 0 ? _visibleRooms[x - 1, z] : null;
 
-                
-                _visibleRooms[x, z].RoomSetup(
-                  _visibleRooms[x, z + 1],
-                   _visibleRooms[x -1 , z],
-                    _visibleRooms[x,z - 1],
-                   _visibleRooms[x + 1, z]
-                );
-
+                _visibleRooms[x, z].RoomSetup(north, west, south, east);
             }
         }
     }
 
-
-
     internal void PlaceRoom(Room RoomToPlace, Vector3 Location)
     {
-        RoomMono room = null;
+        RoomMono room;
 
         switch (RoomToPlace)
         {
             case TreasureRoom:
                 room = RoomPrefabs[1];
-            break;
+                break;
             case MonsterRoom:
                 room = RoomPrefabs[2];
                 break;
@@ -71,10 +65,7 @@ public class WorldBuilder : MonoBehaviour
                 break;
         }
 
-
-         RoomMono ThisRoom = Instantiate(room, Location * RoomSize, Quaternion.identity);
-        
+        RoomMono ThisRoom = Instantiate(room, Location * RoomSize, Quaternion.identity);
         _visibleRooms[(int)Location.x, (int)Location.z] = ThisRoom;
-        
     }
 }

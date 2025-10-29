@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6ef3dfd93fca04d8cdb0d8cb211464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NorthDoor: {fileID: 783144202420326047}
-  WestDoor: {fileID: 2900909053399690033}
-  SouthDoor: {fileID: 7844584163665197324}
-  EastDoor: {fileID: 8735721093896602377}
+  NorthDoor: {fileID: 7844584163665197324}
+  WestDoor: {fileID: 8735721093896602377}
+  SouthDoor: {fileID: 783144202420326047}
+  EastDoor: {fileID: 2900909053399690033}
 --- !u!1 &8231603556041312386
 GameObject:
   m_ObjectHideFlags: 0

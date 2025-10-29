@@ -9,6 +9,6 @@ public class PlayerPosition : MonoBehaviour
     }
     internal void MovePlayer(Vector3 Direction)
     {
-        Player.transform.position += Direction;
+        Player.transform.position += Direction * 10;
     }
 }
