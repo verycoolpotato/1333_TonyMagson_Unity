@@ -13,7 +13,7 @@ namespace DiceGame.Scripts.CoreSystems
         public WorldBuilder Builder;
         public PlayerPosition PlayerPosition;
         public static GameManager Instance { get; private set; }
-
+        public int RoomGrid;
         private DieRoller _roller = new DieRoller();
         private WorldManager _worldManager = new WorldManager();
 

@@ -22,7 +22,7 @@ namespace DiceGame.Scripts.CoreSystems
         };
 
 
-        private Room[,] _rooms = new Room[5, 5];
+        private Room[,] _rooms = new Room[0, 0];
         private System.Random random;
 
         public Room[,] Rooms() => _rooms;
@@ -31,6 +31,7 @@ namespace DiceGame.Scripts.CoreSystems
         {
             Instance = this;
             random = new System.Random();
+            
         }
 
         internal void ClearWorld()
@@ -43,6 +44,7 @@ namespace DiceGame.Scripts.CoreSystems
         /// </summary>
         public void BuildWorld()
         {
+            _rooms = new Room[GameManager.Instance.RoomGrid, GameManager.Instance.RoomGrid];
             _rooms[0, 0] = new ForgeRoom();
 
             for (int row = 0; row < _rooms.GetLength(0); row++)
@@ -56,10 +58,10 @@ namespace DiceGame.Scripts.CoreSystems
                         _rooms[row, column].SetWorld(this);
 
                     }
-                    GameManager.Instance.Builder.PlaceRoom(_rooms[row, column], new Vector3(row, 0, column));
+                    
                 }
             }
-
+            GameManager.Instance.Builder.CreateMap();
             BuildDoors();
         }
 
