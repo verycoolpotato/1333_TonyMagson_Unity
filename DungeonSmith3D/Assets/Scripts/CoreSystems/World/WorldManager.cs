@@ -21,6 +21,7 @@ namespace DiceGame.Scripts.CoreSystems
             { Direction.West, new Vector3(-1,0, 0)}
         };
 
+        
 
         private Room[,] _rooms = new Room[0, 0];
         private System.Random random;
@@ -44,7 +45,13 @@ namespace DiceGame.Scripts.CoreSystems
         /// </summary>
         public void BuildWorld()
         {
-            _rooms = new Room[GameManager.Instance.RoomGrid, GameManager.Instance.RoomGrid];
+            //Change this later, poor implementation
+            _rooms = new Room
+                [
+                GameManager.Instance.Builder.FloorData.GridSizeX,
+                GameManager.Instance.Builder.FloorData.GridSizeZ
+                ];
+
             _rooms[0, 0] = new ForgeRoom();
 
             for (int row = 0; row < _rooms.GetLength(0); row++)

@@ -6,17 +6,19 @@ using UnityEngine;
 public class WorldBuilder : MonoBehaviour
 {
     [SerializeField] RoomMono[] RoomPrefabs;
-    [SerializeField] private float RoomSize = 10;
+   
     private RoomMono[,] _visibleRooms;
+
+    public DungeonGrid FloorData;
 
     public void CreateMap()
     {
-        int grid = GameManager.Instance.RoomGrid;
-        _visibleRooms = new RoomMono[grid, grid];
+        
+        _visibleRooms = new RoomMono[FloorData.GridSizeX, FloorData.GridSizeZ];
 
-        for (int x = 0; x < grid; x++)
+        for (int x  = 0; x < FloorData.GridSizeX; x++)
         {
-            for (int z = 0; z < grid; z++)
+            for (int z = 0; z < FloorData.GridSizeZ; z++)
             {
                 Vector3 coords = new Vector3(x, 0, z);
                 Room room = WorldManager.Instance.Rooms()[x, z]; 
@@ -29,15 +31,15 @@ public class WorldBuilder : MonoBehaviour
 
     internal void OpenDoors()
     {
-        int grid = GameManager.Instance.RoomGrid;
+       
 
-        for (int x = 0; x < grid; x++)
+        for (int x = 0; x < FloorData.GridSizeX; x++)
         {
-            for (int z = 0; z < grid; z++)
+            for (int z = 0; z < FloorData.GridSizeZ; z++)
             {
-                RoomMono north = z + 1 < grid ? _visibleRooms[x, z + 1] : null;
+                RoomMono north = z + 1 < FloorData.GridSizeZ ? _visibleRooms[x, z + 1] : null;
                 RoomMono south = z - 1 >= 0 ? _visibleRooms[x, z - 1] : null;
-                RoomMono east = x + 1 < grid ? _visibleRooms[x + 1, z] : null;
+                RoomMono east = x + 1 < FloorData.GridSizeX ? _visibleRooms[x + 1, z] : null;
                 RoomMono west = x - 1 >= 0 ? _visibleRooms[x - 1, z] : null;
 
                 _visibleRooms[x, z].RoomSetup(north, west, south, east);
@@ -65,7 +67,7 @@ public class WorldBuilder : MonoBehaviour
                 break;
         }
 
-        RoomMono ThisRoom = Instantiate(room, Location * RoomSize, Quaternion.identity);
+        RoomMono ThisRoom = Instantiate(room, Location * FloorData.NodeSize, Quaternion.identity);
         _visibleRooms[(int)Location.x, (int)Location.z] = ThisRoom;
     }
 }
