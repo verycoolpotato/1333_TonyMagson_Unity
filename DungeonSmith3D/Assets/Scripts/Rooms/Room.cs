@@ -50,7 +50,7 @@ namespace DiceGame.Scripts.Rooms
        
         #endregion
 
-        #region AbstractClasses
+        #region Abstract Functions
 
         /// <summary>
         /// what room is this?

@@ -11,7 +11,7 @@ namespace DiceGame.Scripts.Creatures
     internal class Player : Creature
     {
         private WorldManager _worldManager;
-        internal static Room CurrentRoom { get; private set; }
+        public static Room CurrentRoom { get; private set; }
 
         private Vector2 _currentLocation = Vector2.zero;
 
@@ -63,8 +63,6 @@ namespace DiceGame.Scripts.Creatures
                 Debug.Log("That's a wall");
                 return;
             }
-
-
 
             _pos.MovePlayer(_worldManager.PossibleDirections[direction]);
 
