@@ -24,8 +24,13 @@ public class ItemStats : ScriptableObject
 
     [Range(1f, 3f)]
     [SerializeField] private int APCost;
+  
+
+    [Header("Drop")]
     [SerializeField] private RarityTiers Rarity;
- 
+
+    [Range(0f,5f)]
+    [SerializeField] private float Weight;
 
     //Getters
     public Vector2Int ItemRollRange => RollRange;
@@ -34,4 +39,5 @@ public class ItemStats : ScriptableObject
     public Image Icon => ItemImage;
     public string Description => ItemDescription;
     public RarityTiers Tier => Rarity;
+    public float DropWeight => DropWeight;
 }
