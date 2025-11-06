@@ -11,6 +11,8 @@ namespace DiceGame.Scripts.Rooms
     internal abstract class Room
     {
         
+
+
         public enum Direction
         {
             None,
@@ -75,7 +77,7 @@ namespace DiceGame.Scripts.Rooms
         #region Exploration
         
 
-        public abstract string RoomIcon();
+        
        
 
         /// <summary>

@@ -30,12 +30,6 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
             player!.PlayerInventory.PickupItem(LootTables.GetRandomItem(LootTables.CommonTreasure), true);
         }
 
-        public override string RoomIcon()
-        {
-            if (!_revealed)
-                return "[?]".PadRight(3);
-
-            return "[T]".PadRight(3);
-        }
+       
     }
 }
