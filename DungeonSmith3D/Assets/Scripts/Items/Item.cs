@@ -32,7 +32,10 @@ internal abstract class Item : MonoBehaviour
     }
 
     internal abstract void Use();
-    protected abstract void DescribeItem();
+    protected string ItemDescription()
+    {
+        return Stats.Description;
+    }
 
     internal Vector2Int DieRange()
     {
@@ -69,7 +72,7 @@ internal abstract class Item : MonoBehaviour
        DefaultCommands();
 
         Console.WriteLine($"\n--- {Name} ---");
-        DescribeItem();
+        ItemDescription();
 
         // Display options
         var keys = CommandActions.Keys.ToList();

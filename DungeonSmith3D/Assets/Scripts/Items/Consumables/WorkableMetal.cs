@@ -13,24 +13,13 @@ namespace DiceGame.Scripts.Items.Consumables
     internal class WorkableMetal : Consumable
     {
         
-        public WorkableMetal (RarityTiers rarity) : base(rarity, new Vector2Int (1,1)) 
-        {
-           
-            Name = $"{rarity.ToString()} WorkableMetal"; 
-        }
+      
        
         private DieRoller _roller = new DieRoller();
 
        
 
-        protected override void DescribeItem()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("A piece of malleable metal, could be used at a forge to create new weapons");
-            Console.ResetColor();
-            Console.WriteLine();
-            base.DescribeItem();
-        }
+       
 
         /// <summary>
         /// Forge menu

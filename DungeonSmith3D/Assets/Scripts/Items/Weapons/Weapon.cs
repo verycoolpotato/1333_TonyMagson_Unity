@@ -7,6 +7,9 @@ namespace DiceGame.Scripts.Items.Weapons
 {
     internal abstract class Weapon : Item
     {
+
+        [SerializeField] WeaponStats WeaponStat;
+
         internal enum Durability
         {
             Unbreakable = 0,
@@ -16,7 +19,7 @@ namespace DiceGame.Scripts.Items.Weapons
             Shattered = 4,
             
         }
-        protected enum WeaponStyles 
+        internal enum WeaponStyles 
         {
             Fists = 0,
             OneHanded = 1,
@@ -25,32 +28,20 @@ namespace DiceGame.Scripts.Items.Weapons
         
         }
 
-        /// <summary>
-        /// Describe weapon specific attributes
-        /// </summary>
-        protected override void DescribeItem()
-        {
-            Console.WriteLine();
-            Console.WriteLine($"Weapon - {_style}");
-            Console.WriteLine($"Damage: {Die.x}-{Die.y}");
-            Console.WriteLine($"Durability: {WeaponDurability}");
-            Console.WriteLine();
-        }
+      
+       
 
         protected WeaponStyles _style;
-        private Vector2Int _defaultDamage;
+        
         internal Durability WeaponDurability;
         
-        internal Weapon(string WeaponName, Durability durability, Vector2Int die) : base(die)
+        
+        private void Awake()
         {
-            CommandActions["Rename"] = Rename;
-            _defaultDamage = Die;
-            Name = WeaponName;
-            WeaponDurability = durability;
-           
-           
+            //CommandActions["Rename"] = Rename;
+            Stats = WeaponStat;
+            WeaponDurability = WeaponStat.StartDurability;
         }
-
         /// <summary>
         /// Attack function, must return a single damage number in the end
         /// </summary>
@@ -110,7 +101,7 @@ namespace DiceGame.Scripts.Items.Weapons
 
         internal void Repair()
         {
-            Die = _defaultDamage;
+            Die = Stats.ItemRollRange;
             Console.WriteLine("Repaired");
             WeaponDurability = Durability.Sturdy;
         }
