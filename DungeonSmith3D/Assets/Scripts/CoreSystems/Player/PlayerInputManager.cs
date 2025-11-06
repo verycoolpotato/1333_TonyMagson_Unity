@@ -32,4 +32,10 @@ public class PlayerInputManager : MonoBehaviour
             Player.CurrentRoom.OnRoomSearched(GameManager.Instance.GamePlayer);
         }
     }
+
+    public void ViewInventory(InputAction.CallbackContext input)
+    {
+        if(input.performed)
+        GameManager.Instance.GamePlayer.PlayerInventory.ViewInventory();
+    }
 }

@@ -1,13 +1,9 @@
-﻿using DiceGame.Scripts.HelperClasses;
-using DiceGame.Scripts.Items;
-using DiceGame.Scripts.Items.Consumables;
-using DiceGame.Scripts.Items.Weapons;
-using System;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 namespace DiceGame.Scripts.CoreSystems
 {
-    internal class Inventory
+    internal class Inventory : MonoBehaviour
     {
         private List<Item> _inventory = new List<Item>(9) { null, null, null, null, null, null, null, null, null };
 
@@ -19,12 +15,12 @@ namespace DiceGame.Scripts.CoreSystems
                 {
                     _inventory[i] = GrabbedItem;
                     if (AnnouncePickup)
-                        UnityEngine.Debug.Log($"Picked up {GrabbedItem.Name}");
+                        Debug.Log($"Picked up {GrabbedItem.Name}");
                     return;
                 }
             }
 
-            UnityEngine.Debug.LogWarning("Inventory full, cannot pick up item!");
+            Debug.Log("Inventory full, cannot pick up item!");
         }
 
         public void ClearInventory()
@@ -53,24 +49,26 @@ namespace DiceGame.Scripts.CoreSystems
             {
                 if (item != null)
                     return item;
+
+                Debug.Log(item);
             }
 
-            UnityEngine.Debug.LogWarning("Inventory empty, returning null.");
+            Debug.LogWarning("Inventory empty, returning null.");
             return null;
         }
 
-        // Temporary non-blocking inventory display
+       
         public void ViewInventory(int? health = null, int? MaxHealth = null)
         {
-            UnityEngine.Debug.Log("=== INVENTORY ===");
+            Debug.Log("=== INVENTORY ===");
 
             if (health != null && MaxHealth != null)
-                UnityEngine.Debug.Log($"{health}/{MaxHealth} Health");
+                Debug.Log($"{health}/{MaxHealth} Health");
 
             for (int i = 0; i < _inventory.Count; i++)
             {
                 string itemName = _inventory[i]?.Name ?? "Empty";
-                UnityEngine.Debug.Log($"[{i + 1}] {itemName}");
+                Debug.Log($"[{i + 1}] {itemName}");
             }
         }
 

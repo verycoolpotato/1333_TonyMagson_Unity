@@ -4,16 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-internal abstract class Item
+internal abstract class Item : MonoBehaviour
 {
     internal string Name;
 
     protected Vector2Int Die;
 
+    [SerializeField] protected ItemStats Stats;
+
     public int ActionPointCost { get; protected set; }
-    internal Item(Vector2Int die)
+    
+    private void Awake()
     {
-        Die = die;
+        Die = Stats.ItemRollRange;
+        ActionPointCost = Stats.ActionPointCost;
+        Name = Stats.ThisItemName;
     }
 
     //allows looping through methods
