@@ -18,11 +18,6 @@ namespace DiceGame.Scripts.Rooms
             _revealed = true;
         }
 
-        public override string RoomIcon()
-        {
-            if (!_revealed)
-                return "[?]".PadRight(3);
-            return "[=]".PadRight(3);
-        }
+       
     }
 }

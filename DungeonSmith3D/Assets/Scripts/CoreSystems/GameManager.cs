@@ -53,7 +53,7 @@ namespace DiceGame.Scripts.CoreSystems
             // Create player
             GamePlayer = new Player();
 
-            _worldManager.DisplayWorld(GamePlayer);
+           
 
             // Start player movement/input
             GamePlayer.HandleInput();
@@ -91,14 +91,14 @@ namespace DiceGame.Scripts.CoreSystems
 
                     if (playerItem.ActionPointCost <= playerActions)
                     {
-                        if (playerItem is Fists Guard)
+                       
+                        if (playerItem is Weapon weapon)
                         {
-                            // Damage reduction
-                            blockAmount += Guard.Attack(_roller);
-                            Debug.Log($"<color=yellow>{enemy.Name}'s attack reduced by {blockAmount}</color>");
-                        }
-                        else if (playerItem is Weapon weapon)
-                        {
+                            if(weapon.WeaponStat.ThisWeaponStyle == Weapon.WeaponStyles.Fists)
+                            {
+                                blockAmount += weapon.Attack(_roller);
+                                Debug.Log($"<color=yellow>{enemy.Name}'s attack reduced by {blockAmount}</color>");
+                            }
                             int roll = weapon.Attack(_roller);
                             playerDamage += roll;
                             Debug.Log($"<color=orange>Weapon hit for {roll}!</color>");
@@ -141,8 +141,7 @@ namespace DiceGame.Scripts.CoreSystems
                 yield break;
             }
 
-            Debug.Log("<color=cyan>Battle Over!</color>");
-            _worldManager.DisplayWorld(player);
+           
         }
 
         /// <summary>

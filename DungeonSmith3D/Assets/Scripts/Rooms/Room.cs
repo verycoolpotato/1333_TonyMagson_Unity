@@ -2,15 +2,16 @@
 using DiceGame.Scripts.Creatures;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 
 
 namespace DiceGame.Scripts.Rooms
 {
   
-    internal abstract class Room
+    internal abstract class Room : MonoBehaviour
     {
-        
+        [SerializeField] protected RoomStats RoomStats;
 
 
         public enum Direction

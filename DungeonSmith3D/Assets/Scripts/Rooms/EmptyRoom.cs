@@ -22,7 +22,7 @@ namespace DiceGame.Scripts.Rooms
                 return;
             }
 
-            Item item = LootTables.GetRandomItem(LootTables.CommonDrop);
+            ItemStats item = LootTables.GetRandomItem(RoomStats.LootTable);
             if (item != null)
             {
                 player!.PlayerInventory.PickupItem(item, true);
@@ -36,11 +36,6 @@ namespace DiceGame.Scripts.Rooms
             _empty = true;
         }
 
-        public override string RoomIcon()
-        {
-            if (!_revealed)
-                return "[?]".PadRight(3);
-            return "[ ]".PadRight(3);
-        }
+      
     }
 }

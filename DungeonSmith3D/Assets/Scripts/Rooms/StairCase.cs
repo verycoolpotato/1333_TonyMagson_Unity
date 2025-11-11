@@ -2,10 +2,7 @@
 using DiceGame.Scripts.Creatures;
 using DiceGame.Scripts.HelperClasses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DiceGame.Scripts.Rooms
 {
@@ -55,12 +52,7 @@ namespace DiceGame.Scripts.Rooms
             
         }
 
-        public override string RoomIcon()
-        {
-            if (!_revealed)
-                return "[?]".PadRight(3);
-            return "[^]".PadRight(3);
-        }
+       
 
 
 

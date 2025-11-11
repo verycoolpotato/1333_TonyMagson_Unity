@@ -1,9 +1,9 @@
 ﻿using DiceGame.Scripts.CoreSystems;
-using DiceGame.Scripts.Items;
+
 using DiceGame.Scripts.Items.Consumables;
 using DiceGame.Scripts.Items.Weapons;
 using DiceGame.Scripts.Rooms;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace DiceGame.Scripts.Creatures

@@ -99,28 +99,6 @@ namespace DiceGame.Scripts.CoreSystems
             }
         }
 
-        /// <summary>
-        /// Prints the world to the Unity console
-        /// </summary>
-        public void DisplayWorld(Player player)
-        {
-            Room[,] rooms = _rooms;
-            string map = "";
-
-            for (int row = 0; row < rooms.GetLength(0); row++)
-            {
-                for (int col = 0; col < rooms.GetLength(1); col++)
-                {
-                    var room = rooms[row, col];
-                    if (Player.CurrentRoom == room)
-                        map += "[P]";
-                    else
-                        map += room.RoomIcon();
-                }
-                map += "\n";
-            }
-
-            Debug.Log(map);
-        }
+      
     }
 }

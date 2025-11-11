@@ -7,8 +7,7 @@ namespace DiceGame.Scripts.Items.Weapons
 {
     internal abstract class Weapon : Item
     {
-
-        [SerializeField] WeaponStats WeaponStat;
+         public WeaponStats WeaponStat;
 
         internal enum Durability
         {
@@ -25,7 +24,6 @@ namespace DiceGame.Scripts.Items.Weapons
             OneHanded = 1,
             TwoHanded = 2,
             Heavy = 3
-        
         }
 
       
@@ -38,10 +36,11 @@ namespace DiceGame.Scripts.Items.Weapons
         
         private void Awake()
         {
-            //CommandActions["Rename"] = Rename;
+           
             Stats = WeaponStat;
             WeaponDurability = WeaponStat.StartDurability;
         }
+
         /// <summary>
         /// Attack function, must return a single damage number in the end
         /// </summary>
