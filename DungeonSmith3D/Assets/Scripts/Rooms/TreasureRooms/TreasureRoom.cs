@@ -20,7 +20,7 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
                 return;
             }
 
-            Debug.Log(""); // Preserves the blank line from Console.WriteLine()
+           
             Loot(player!);
             _empty = true;
             _revealed = true;

@@ -16,10 +16,7 @@ public class ItemStats : ScriptableObject
     public enum ItemClass
     {
         Weapon,
-        Armor,
-        Consumable,
-        KeyItem,
-        Material
+        Item
     }
 
     [Header("Identifiers")]
