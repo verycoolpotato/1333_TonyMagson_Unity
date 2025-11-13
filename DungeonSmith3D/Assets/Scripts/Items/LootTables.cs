@@ -1,11 +1,6 @@
-﻿using DiceGame.Scripts.Items.Consumables;
-using DiceGame.Scripts.Items.Weapons;
-using DiceGame.Scripts.Rooms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using UnityEngine;
-using UnityEngine.Tilemaps;
+
 
 namespace DiceGame.Scripts.Items
 {
@@ -30,7 +25,7 @@ namespace DiceGame.Scripts.Items
                 totalWeight += Mathf.Max(entry.DropWeight, 0f);
 
             // Pick a random value
-            float randomValue = UnityEngine.Random.value * totalWeight;
+            float randomValue = Random.value * totalWeight;
 
             foreach (var entry in Table.TableArray)
             {

@@ -1,7 +1,7 @@
 using DiceGame.Scripts.Items.Weapons;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponStats", menuName = "Scriptable Objects/WeaponStats")]
+[CreateAssetMenu(fileName = "ItemStats", menuName = "Scriptable Objects/WeaponStats")]
 public class WeaponStats : ItemStats
 {
     internal Weapon.WeaponStyles ThisWeaponStyle => WeaponStyle;

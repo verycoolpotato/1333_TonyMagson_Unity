@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace DiceGame.Scripts.Creatures
 {
-    internal abstract class Creature
+    internal abstract class Creature : MonoBehaviour
     {
 
 
@@ -26,23 +27,16 @@ namespace DiceGame.Scripts.Creatures
         protected int _maxHealth;
         internal Inventory inventory;
 
-        protected Creature(int health)
+      
+
+        private void Awake()
         {
-            _maxHealth = health;
-            Health = health;
-           
-        }
-        protected Creature(int health, string name)
-        {
-            _maxHealth = health;
-            Health = health;
-            Name = name;
-            
+            _maxHealth = _health;
+            Health = _health;
         }
 
-        
 
-        
+
 
     }
 }

@@ -17,31 +17,25 @@ namespace DiceGame.Scripts.Creatures
 
         public Inventory PlayerInventory;
 
-        private PlayerPosition _pos = GameManager.Instance.PlayerPosition;
+        private PlayerPosition _pos;
 
+       
+        [SerializeField] ItemStats[] StarterItems;
 
-        // Constructor replaces Awake
-        public Player(string name = "Player", int health = 30)
-            : base(health, name)
+       
+
+        public void InitializeAfterWorldBuild()
         {
+            _pos = GameManager.Instance.PlayerPosition;
             _worldManager = WorldManager.Instance;
-            PlayerInventory = new Inventory();
 
-            // Add starting items
-            PlayerInventory.PickupItem(new Fists(), false);
-            
-            PlayerInventory.PickupItem(new Shortsword($"{name}'s Shortsword", Weapon.Durability.Sturdy, new Vector2Int(5, 8)), false);
-            PlayerInventory.PickupItem(new WorkableMetal(Consumable.RarityTiers.Common), false);
+            for (int i = 0; i < StarterItems.Length; i++)
+                PlayerInventory.PickupItem(StarterItems[i]);
 
-            // Set starting room
-            if (_worldManager != null)
-            {
-                CurrentRoom = _worldManager.Rooms()[(int)_currentLocation.x, (int)_currentLocation.y];
-                
-            }
+            CurrentRoom = _worldManager.Rooms()[(int)_currentLocation.x, (int)_currentLocation.y];
         }
 
-      
+
         public void HandleInput()
         {
             
@@ -71,7 +65,7 @@ namespace DiceGame.Scripts.Creatures
 
             CurrentRoom = CurrentRoom.RoomRefs[direction];
 
-            _worldManager?.DisplayWorld(this);
+          
 
             // Enter new room
             CurrentRoom.OnRoomEnter();

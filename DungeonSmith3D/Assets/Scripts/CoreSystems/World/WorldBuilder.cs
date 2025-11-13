@@ -31,8 +31,6 @@ public class WorldBuilder : MonoBehaviour
 
     internal void OpenDoors()
     {
-       
-
         for (int x = 0; x < FloorData.GridSizeX; x++)
         {
             for (int z = 0; z < FloorData.GridSizeZ; z++)
@@ -49,25 +47,31 @@ public class WorldBuilder : MonoBehaviour
 
     internal void PlaceRoom(Room RoomToPlace, Vector3 Location)
     {
-        RoomMono room;
+        RoomMono prefab;
 
         switch (RoomToPlace)
         {
             case TreasureRoom:
-                room = RoomPrefabs[1];
+                prefab = RoomPrefabs[1];
                 break;
             case MonsterRoom:
-                room = RoomPrefabs[2];
+                prefab = RoomPrefabs[2];
                 break;
             case ForgeRoom:
-                room = RoomPrefabs[3];
+                prefab = RoomPrefabs[3];
                 break;
             default:
-                room = RoomPrefabs[0];
+                prefab = RoomPrefabs[0];
                 break;
         }
 
-        RoomMono ThisRoom = Instantiate(room, Location * FloorData.NodeSize, Quaternion.identity);
-        _visibleRooms[(int)Location.x, (int)Location.z] = ThisRoom;
+        RoomMono instance = Instantiate(prefab, Location * FloorData.NodeSize, Quaternion.identity);
+
+        // Link the logical room to the prefab's stats
+        if (prefab.Data != null)
+            RoomToPlace.RoomStats = prefab.Data;
+
+        _visibleRooms[(int)Location.x, (int)Location.z] = instance;
     }
+
 }

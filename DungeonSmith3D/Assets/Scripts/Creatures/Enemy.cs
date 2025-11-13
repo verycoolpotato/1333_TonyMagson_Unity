@@ -6,12 +6,7 @@ namespace DiceGame.Scripts.Creatures
 {
     internal class Enemy : Creature
     {
-        public Enemy(int health, string name, Vector2Int Damage) : base(health,name) 
-        {
-            _baseDamage = Damage;
-           
-        
-        }
+      
         
         private Vector2Int _baseDamage;
         internal Vector2Int ModifiedDamage;

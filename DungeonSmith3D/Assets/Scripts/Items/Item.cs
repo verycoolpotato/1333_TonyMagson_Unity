@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-internal abstract class Item : MonoBehaviour
+internal class Item 
 {
     internal string Name;
 
     protected Vector2Int Die;
 
-    [SerializeField] protected ItemStats Stats;
+    public ItemStats Stats;
+
 
     public int ActionPointCost { get; protected set; }
     
@@ -31,7 +32,10 @@ internal abstract class Item : MonoBehaviour
        
     }
 
-    internal abstract void Use();
+    internal virtual void Use()
+    {
+
+    }
     protected string ItemDescription()
     {
         return Stats.Description;
@@ -47,9 +51,7 @@ internal abstract class Item : MonoBehaviour
     /// </summary>
     protected void Drop()
     {
-        Console.WriteLine($"Are you sure you want to get rid of {Name}?");
-        Console.WriteLine("[1] Keep");
-        Console.WriteLine("[2] Drop");
+      
         if (InputHelper.GetIntInput() == 2)
         {
             Console.WriteLine($"{Name} was dropped.");

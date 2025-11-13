@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace DiceGame.Scripts.Items.Weapons
 {
-    internal abstract class Weapon : Item
+  
+    internal class Weapon : Item
     {
          public WeaponStats WeaponStat;
 

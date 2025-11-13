@@ -1,22 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace DiceGame.Scripts.CoreSystems
 {
     internal class Inventory : MonoBehaviour
     {
         private List<Item> _inventory = new List<Item>(9) { null, null, null, null, null, null, null, null, null };
-
-        public void PickupItem(Item GrabbedItem, bool AnnouncePickup)
+        
+        public void PickupItem(ItemStats GrabbedItem)
         {
             for (int i = 0; i < _inventory.Count; i++)
             {
                 if (_inventory[i] == null)
                 {
-                    _inventory[i] = GrabbedItem;
-                    if (AnnouncePickup)
-                        Debug.Log($"Picked up {GrabbedItem.Name}");
-                    return;
+                    object instance = Activator.CreateInstance(GrabbedItem.ClassType);
+
+                    Item item = instance as Item;
+
+                    _inventory[i] = item;
+
+
+                    _inventory[i].Stats = GrabbedItem;
                 }
             }
 

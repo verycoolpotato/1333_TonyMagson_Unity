@@ -29,7 +29,7 @@ namespace DiceGame.Scripts.Rooms
                         WorldManager world = WorldManager.Instance!;
                         world.ClearWorld();
                         world.BuildWorld();
-                        world.DisplayWorld(GameManager.Instance!.GamePlayer);
+                        
                         break;
 
                     case 2:

@@ -1,5 +1,6 @@
 ﻿using DiceGame.Scripts.Creatures;
 using DiceGame.Scripts.Items;
+
 using UnityEngine;
 
 namespace DiceGame.Scripts.Rooms.TreasureRooms
@@ -27,7 +28,7 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
 
         protected virtual void Loot(Player player)
         {
-            player!.PlayerInventory.PickupItem(LootTables.GetRandomItem(LootTables.CommonTreasure), true);
+            player.PlayerInventory.PickupItem(LootTables.GetRandomItem(RoomStats.LootTable));
         }
 
        

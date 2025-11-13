@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "ItemStats", menuName = "Scriptable Objects/ItemStats")]
 public class ItemStats : ScriptableObject
 {
-
     public enum RarityTiers
     {
         Common = 0,
@@ -13,31 +13,38 @@ public class ItemStats : ScriptableObject
         Unique = 3
     }
 
-    //Fields
+    public enum ItemClass
+    {
+        Weapon,
+        Armor,
+        Consumable,
+        KeyItem,
+        Material
+    }
+
     [Header("Identifiers")]
     [SerializeField] private string ItemName;
-    [SerializeField] private Image ItemImage;
+    [SerializeField] private Sprite ItemImage;
     [SerializeField] private string ItemDescription;
 
     [Header("Stats")]
     [SerializeField] private Vector2Int RollRange;
-
-    [Range(1f, 3f)]
-    [SerializeField] private int APCost;
-  
+    [SerializeField] private ItemClass ThisClass;
+    [Range(1, 3)][SerializeField] private int APCost;
 
     [Header("Drop")]
     [SerializeField] private RarityTiers Rarity;
+    [Range(0f, 5f)][SerializeField] private float Weight;
 
-    [Range(0f,5f)]
-    [SerializeField] private float Weight;
-
-    //Getters
+    // Getters
     public Vector2Int ItemRollRange => RollRange;
     public int ActionPointCost => APCost;
     public string ThisItemName => ItemName;
-    public Image Icon => ItemImage;
+    public Sprite Icon => ItemImage;
     public string Description => ItemDescription;
     public RarityTiers Tier => Rarity;
-    public float DropWeight => DropWeight;
+    public float DropWeight => Weight;
+    public ItemClass Class => ThisClass;
+
+    public Type ClassType => Type.GetType(ThisClass.ToString());
 }

@@ -30,8 +30,8 @@ namespace DiceGame.Scripts.Rooms
         {
             if (!_empty)
             {
-                Enemy enemy = EnemyTables.GetRandomEnemy(EnemyTables.CommonEnemies);
-                GameManager.Instance!.Combat(enemy);
+              //  Enemy enemy = EnemyTables.GetRandomEnemy(EnemyTables.CommonEnemies);
+              //  GameManager.Instance!.Combat(enemy);
             }
 
             _empty = true;

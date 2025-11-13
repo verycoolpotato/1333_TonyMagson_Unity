@@ -9,10 +9,10 @@ using UnityEngine;
 namespace DiceGame.Scripts.Rooms
 {
   
-    internal abstract class Room : MonoBehaviour
+    internal abstract class Room
     {
-        [SerializeField] protected RoomStats RoomStats;
-
+        public RoomStats RoomStats;
+        
 
         public enum Direction
         {

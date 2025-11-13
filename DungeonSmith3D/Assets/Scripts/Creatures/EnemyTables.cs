@@ -13,12 +13,7 @@ namespace DiceGame.Scripts.Rooms
 {
     internal static class EnemyTables
     {
-        internal static List<KeyValuePair<Func<Enemy>, float>> CommonEnemies = new List<KeyValuePair<Func<Enemy>, float>>()
-        {
-            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(20,"Goblin",new Vector2Int(8,12)), 4f),
-            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(10,"Skeleton",new Vector2Int(5,14)), 5f),
-            new KeyValuePair<Func<Enemy>, float>(() => new Enemy(30,"Corpse Beast",new Vector2Int(5,10)), 2f),
-        };
+       
 
 
 

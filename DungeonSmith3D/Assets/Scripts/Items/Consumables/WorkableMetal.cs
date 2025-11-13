@@ -71,7 +71,7 @@ namespace DiceGame.Scripts.Items.Consumables
                     int inputType = InputHelper.GetIntInput();
                     Item forgedItem = null;
                     Console.WriteLine("Forging a weapon...");
-                   
+                   /*
                     switch (inputType)
                     {
 
@@ -98,6 +98,9 @@ namespace DiceGame.Scripts.Items.Consumables
                         default:
                             continue;
                     }
+
+
+                    */
                     RemoveItem();
                     return;
                 }

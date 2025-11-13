@@ -18,7 +18,7 @@ namespace DiceGame.Scripts.CoreSystems
         private DieRoller _roller = new DieRoller();
         private WorldManager _worldManager = new WorldManager();
 
-        internal Player GamePlayer;
+        public Player GamePlayer;
 
         private void Awake()
         {
@@ -47,17 +47,15 @@ namespace DiceGame.Scripts.CoreSystems
 
         public void Play()
         {
-            // Build the dungeon
+            //spawns the world
             _worldManager.BuildWorld();
 
-            // Create player
-            GamePlayer = new Player();
+            // spawn player after the world is built, for timing
+            GamePlayer.InitializeAfterWorldBuild();
 
-           
-
-            // Start player movement/input
             GamePlayer.HandleInput();
         }
+
 
         /// <summary>
         /// Starts combat with the given enemy.
@@ -158,7 +156,7 @@ namespace DiceGame.Scripts.CoreSystems
         private void ResetProgression()
         {
             GamePlayer.PlayerInventory.ClearInventory();
-            GamePlayer = new Player();
+           
             _worldManager.ClearWorld();
         }
     }
