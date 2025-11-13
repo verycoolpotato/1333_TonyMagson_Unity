@@ -7,7 +7,7 @@ namespace DiceGame.Scripts.CoreSystems
 {
     internal class Inventory : MonoBehaviour
     {
-        private List<Item> _inventory = new List<Item>(9) { null, null, null, null, null, null, null, null, null };
+        [SerializeField] List<Item> _inventory = new List<Item>(9) { null, null, null, null, null, null, null, null, null };
         
         public void PickupItem(ItemStats GrabbedItem)
         {
@@ -16,14 +16,12 @@ namespace DiceGame.Scripts.CoreSystems
                 if (_inventory[i] == null)
                 {
                     object instance = Activator.CreateInstance(GrabbedItem.ClassType);
-
                     Item item = instance as Item;
-
                     _inventory[i] = item;
-
-
                     _inventory[i].Stats = GrabbedItem;
+                    return;
                 }
+
             }
 
             Debug.Log("Inventory full, cannot pick up item!");

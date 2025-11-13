@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae4a2e88d1e22b43be7f4494e894c54, type: 3}
   m_Name: Shortsword
   m_EditorClassIdentifier: 
-  ItemName: Sword
+  ItemName: shorsword
   ItemImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   ItemDescription: 
-  RollRange: {x: 0, y: 0}
+  RollRange: {x: 4, y: 7}
   ThisClass: 0
-  APCost: 2
+  APCost: 1
   Rarity: 0
-  Weight: 0
+  Weight: 5

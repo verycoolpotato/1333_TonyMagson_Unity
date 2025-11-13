@@ -1,3 +1,4 @@
+using DiceGame.Scripts.Items.Weapons;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,5 +44,17 @@ public class ItemStats : ScriptableObject
     public float DropWeight => Weight;
     public ItemClass Class => ThisClass;
 
-    public Type ClassType => Type.GetType(ThisClass.ToString());
+    public Type ClassType
+    {
+        get
+        {
+            return ThisClass switch
+            {
+                ItemClass.Weapon => typeof(Weapon),
+                ItemClass.Item => typeof(Item),
+                _ => null
+            };
+        }
+    }
+
 }

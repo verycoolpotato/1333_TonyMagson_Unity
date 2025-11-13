@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomName: TreasureRoom
   RoomDescription: The Room is Cool
-  RoomLoottable: {fileID: 0}
+  RoomLoottable: {fileID: 11400000, guid: 1417437b878c92c4c93a40c0c4201b49, type: 2}

@@ -15,8 +15,8 @@ MonoBehaviour:
   ItemName: Sword
   ItemImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   ItemDescription: 
-  RollRange: {x: 0, y: 0}
+  RollRange: {x: 5, y: 9}
   ThisClass: 0
   APCost: 2
   Rarity: 0
-  Weight: 0
+  Weight: 5
