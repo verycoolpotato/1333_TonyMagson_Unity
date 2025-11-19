@@ -10,7 +10,7 @@ namespace DiceGame.Scripts.Items.Weapons
 {
     internal class RedMetalSword : Weapon
     {
-        
+        public RedMetalSword(WeaponStats weaponStats) : base(weaponStats) { }
        
        
 

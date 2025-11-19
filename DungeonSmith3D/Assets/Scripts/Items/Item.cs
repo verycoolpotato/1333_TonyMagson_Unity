@@ -3,6 +3,7 @@ using DiceGame.Scripts.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 internal class Item 
 {
@@ -10,16 +11,20 @@ internal class Item
 
     protected Vector2Int Die;
 
-    public ItemStats Stats;
+    protected ItemStats _stats;
 
 
     public int ActionPointCost { get; protected set; }
     
-    private void Awake()
+  
+
+    public Item(ItemStats stats)
     {
-        Die = Stats.ItemRollRange;
-        ActionPointCost = Stats.ActionPointCost;
-        Name = Stats.ThisItemName;
+        _stats = stats;
+        Die = _stats.ItemRollRange;
+        ActionPointCost = _stats.ActionPointCost;
+        Name = _stats.ThisItemName;
+        
     }
 
     //allows looping through methods
@@ -38,7 +43,7 @@ internal class Item
     }
     protected string ItemDescription()
     {
-        return Stats.Description;
+        return _stats.Description;
     }
 
     internal Vector2Int DieRange()

@@ -10,7 +10,7 @@ using System.Linq;
 using UnityEngine;
 namespace DiceGame.Scripts.Items.Consumables
 {
-    internal class WorkableMetal : Consumable
+    internal class WorkableMetal : Item
     {
         
       
@@ -18,8 +18,14 @@ namespace DiceGame.Scripts.Items.Consumables
         private DieRoller _roller = new DieRoller();
 
        
+        public WorkableMetal(ItemStats stats) : base(stats)
+        {
 
-       
+        }
+
+
+
+
 
         /// <summary>
         /// Forge menu

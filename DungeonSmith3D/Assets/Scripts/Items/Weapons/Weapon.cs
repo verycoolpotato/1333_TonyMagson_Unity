@@ -8,7 +8,7 @@ namespace DiceGame.Scripts.Items.Weapons
   
     internal class Weapon : Item
     {
-         public WeaponStats WeaponStat;
+       
 
         internal enum Durability
         {
@@ -27,19 +27,22 @@ namespace DiceGame.Scripts.Items.Weapons
             Heavy = 3
         }
 
-      
-       
+
+        public WeaponStats WeaponStat;
 
         protected WeaponStyles _style;
         
         internal Durability WeaponDurability;
         
-        
+        public Weapon(WeaponStats WeaponStat) : base(WeaponStat)
+        {
+           
+            WeaponDurability = WeaponStat.StartDurability;
+        }
         private void Awake()
         {
            
-            Stats = WeaponStat;
-            WeaponDurability = WeaponStat.StartDurability;
+            
         }
 
         /// <summary>
@@ -101,7 +104,7 @@ namespace DiceGame.Scripts.Items.Weapons
 
         internal void Repair()
         {
-            Die = Stats.ItemRollRange;
+            Die = _stats.ItemRollRange;
             Console.WriteLine("Repaired");
             WeaponDurability = Durability.Sturdy;
         }

@@ -151,6 +151,7 @@ MonoBehaviour:
   WestDoor: {fileID: 8735721093896602377}
   SouthDoor: {fileID: 783144202420326047}
   EastDoor: {fileID: 2900909053399690033}
+  Data: {fileID: 11400000, guid: 787d5dcce197b13459b6c15816aeb230, type: 2}
 --- !u!1 &8231603556041312386
 GameObject:
   m_ObjectHideFlags: 0

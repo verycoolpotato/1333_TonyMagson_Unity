@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DiceGame.Scripts.Items.Consumables
 {
-    internal class HealthGem : Consumable
+    internal class HealthGem : Item
     {
         
        
@@ -15,7 +15,10 @@ namespace DiceGame.Scripts.Items.Consumables
         private DieRoller _roller = new DieRoller();
 
        
+        public HealthGem(ItemStats stats) : base(stats) 
+        {
 
+        }
       
 
         internal override void Use()

@@ -1,24 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
+
 
 namespace DiceGame.Scripts.CoreSystems
 {
     internal class Inventory : MonoBehaviour
     {
-        [SerializeField] List<Item> _inventory = new List<Item>(9) { null, null, null, null, null, null, null, null, null };
-        
+        private List<Item> _inventory = new List<Item>(10) { null, null, null, null, null, null, null, null, null,null};
+
+
+        [SerializeField] Canvas InventoryPopup;
+
         public void PickupItem(ItemStats GrabbedItem)
         {
             for (int i = 0; i < _inventory.Count; i++)
             {
                 if (_inventory[i] == null)
                 {
-                    object instance = Activator.CreateInstance(GrabbedItem.ClassType);
-                    Item item = instance as Item;
+                    //object instance = Activator.CreateInstance(GrabbedItem.ClassType);
+                    //Item item = instance as Item;
+
+                    Item item = new Item(GrabbedItem);
+
                     _inventory[i] = item;
-                    _inventory[i].Stats = GrabbedItem;
+                   
+                 
                     return;
                 }
 
@@ -64,14 +71,21 @@ namespace DiceGame.Scripts.CoreSystems
        
         public void ViewInventory(int? health = null, int? MaxHealth = null)
         {
-            Debug.Log("=== INVENTORY ===");
+           
+            //Toggle inventory
+            InventoryPopup.enabled = !InventoryPopup.enabled; 
 
             if (health != null && MaxHealth != null)
                 Debug.Log($"{health}/{MaxHealth} Health");
 
             for (int i = 0; i < _inventory.Count; i++)
             {
-                string itemName = _inventory[i]?.Name ?? "Empty";
+                
+                string itemName = "Empty";
+
+                if(_inventory[i]?.Name! != null)
+                    itemName = _inventory[i].Name;
+                
                 Debug.Log($"[{i + 1}] {itemName}");
             }
         }

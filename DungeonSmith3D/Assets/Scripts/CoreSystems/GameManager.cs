@@ -101,10 +101,7 @@ namespace DiceGame.Scripts.CoreSystems
                             playerDamage += roll;
                             Debug.Log($"<color=orange>Weapon hit for {roll}!</color>");
                         }
-                        else if (playerItem is Consumable consumable)
-                        {
-                            consumable.Use();
-                        }
+                       
 
                         playerActions -= playerItem.ActionPointCost;
                     }

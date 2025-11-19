@@ -28,11 +28,9 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
 
         protected virtual void Loot(Player player)
         {
-          
-
-            player.PlayerInventory.PickupItem(LootTables.GetRandomItem(RoomStats.LootTable));
+            player.PlayerInventory.PickupItem(RoomStats.LootTable.TableArray[0]);
         }
 
-       
+        //LootTables.GetRandomItem(RoomStats.LootTable)
     }
 }
