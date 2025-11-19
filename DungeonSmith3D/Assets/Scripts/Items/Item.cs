@@ -12,7 +12,7 @@ internal class Item
     protected Vector2Int Die;
 
     protected ItemStats _stats;
-
+    public ItemStats Stats => _stats;
 
     public int ActionPointCost { get; protected set; }
     

@@ -10,7 +10,7 @@ namespace DiceGame.Scripts.CoreSystems
         private List<Item> _inventory = new List<Item>(10) { null, null, null, null, null, null, null, null, null,null};
 
 
-        [SerializeField] Canvas InventoryPopup;
+        [SerializeField] GameObject InventoryPopup;
 
         public void PickupItem(ItemStats GrabbedItem)
         {
@@ -73,7 +73,7 @@ namespace DiceGame.Scripts.CoreSystems
         {
            
             //Toggle inventory
-            InventoryPopup.enabled = !InventoryPopup.enabled; 
+            InventoryPopup.SetActive(!InventoryPopup.activeSelf); 
 
             if (health != null && MaxHealth != null)
                 Debug.Log($"{health}/{MaxHealth} Health");

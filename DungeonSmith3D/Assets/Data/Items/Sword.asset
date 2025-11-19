@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Sword
   ItemImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  ItemDescription: fork
+  ItemDescription: spork
   RollRange: {x: 5, y: 9}
   ThisClass: 0
   APCost: 2
