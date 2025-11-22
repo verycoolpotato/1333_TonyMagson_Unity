@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DiceGame.Scripts.Creatures
 {
-    internal class Enemy : Creature
+    public class Enemy : Creature
     {
       
         

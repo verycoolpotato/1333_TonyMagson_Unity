@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace DiceGame.Scripts.Creatures
 {
-    internal abstract class Creature : MonoBehaviour
+    public abstract class Creature : MonoBehaviour
     {
 
 

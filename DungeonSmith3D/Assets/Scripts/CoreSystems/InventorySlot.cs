@@ -1,6 +1,7 @@
 using DiceGame.Scripts.CoreSystems;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
@@ -11,17 +12,30 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI Description;
     [SerializeField] Image Icon;
     [SerializeField] Image SlotIcon;
+    [SerializeField] UnityEvent<Item> Selected;
+    public void CombatSelect()
+    {
+        Selected.Invoke(_item);
+    }
 
-   
     private Item _item;
     public void Clicked()
     {
        
 
-        if (_item == null) return;
+        if (_item == null)
+        {
+            ToolTipPopup.SetActive(false);
+            return;
+        }
+        else
+            ToolTipPopup.SetActive(true);
+            
+        
+           
 
 
-        ToolTipPopup.SetActive(!ToolTipPopup.activeSelf);
+
         Name.text = _item.Stats.ThisItemName;
         Description.text = _item.Stats.Description;
         Icon.sprite = _item.Stats.Icon;

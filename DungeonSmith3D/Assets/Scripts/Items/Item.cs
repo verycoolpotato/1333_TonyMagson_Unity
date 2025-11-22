@@ -3,9 +3,9 @@ using DiceGame.Scripts.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+
 using UnityEngine;
-internal class Item 
+public class Item 
 {
     internal string Name;
 

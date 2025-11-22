@@ -11,6 +11,7 @@ namespace DiceGame.Scripts.CoreSystems
 
 
         [SerializeField] GameObject InventoryPopup;
+        [SerializeField] GameObject CombatInventoryPopup;
 
         public void PickupItem(ItemStats GrabbedItem)
         {
@@ -56,15 +57,16 @@ namespace DiceGame.Scripts.CoreSystems
       
         public Item CombatInventory()
         {
-            foreach (var item in _inventory)
-            {
-                if (item != null)
-                    return item;
+            CombatInventoryPopup.SetActive(true);
 
-                Debug.Log(item);
+            for (int i = 0; i < _inventory.Count; i++)
+            {
+              
+
+               
             }
 
-            Debug.LogWarning("Inventory empty, returning null.");
+           
             return null;
         }
 
@@ -75,8 +77,7 @@ namespace DiceGame.Scripts.CoreSystems
             //Toggle inventory
             InventoryPopup.SetActive(!InventoryPopup.activeSelf); 
 
-            if (health != null && MaxHealth != null)
-                Debug.Log($"{health}/{MaxHealth} Health");
+           
 
             for (int i = 0; i < _inventory.Count; i++)
             {
@@ -85,8 +86,7 @@ namespace DiceGame.Scripts.CoreSystems
 
                 if(_inventory[i]?.Name! != null)
                     itemName = _inventory[i].Name;
-                
-                Debug.Log($"[{i + 1}] {itemName}");
+               
             }
         }
 
