@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eae4a2e88d1e22b43be7f4494e894c54, type: 3}
-  m_Name: Sword
+  m_Script: {fileID: 11500000, guid: 7f007bb81eaa56940aa2bce7a22250ee, type: 3}
+  m_Name: RoomStats
   m_EditorClassIdentifier: 
-  ItemName: Sword
-  ItemImage: {fileID: 21300000, guid: e4cb9591941083744a089f872f728de4, type: 3}
-  ItemDescription: spork
-  RollRange: {x: 5, y: 9}
-  ThisClass: 0
-  APCost: 2
-  Rarity: 0
-  Weight: 5
+  RoomName: 
+  RoomDescription: 
+  RoomLoottable: {fileID: 11400000, guid: 1417437b878c92c4c93a40c0c4201b49, type: 2}
