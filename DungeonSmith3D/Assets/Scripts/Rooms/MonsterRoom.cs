@@ -6,14 +6,6 @@ namespace DiceGame.Scripts.Rooms
 {
     internal class MonsterRoom : Room
     {
-        protected override string RoomDescription()
-        {
-            if (!_empty)
-                return "A silhouetted figure blocks your path";
-            else
-                return "A creature lays dead on the floor";
-        }
-
         public override void OnRoomSearched(Player player = null)
         {
             if (_empty)
@@ -30,8 +22,8 @@ namespace DiceGame.Scripts.Rooms
         {
             if (!_empty)
             {
-              //  Enemy enemy = EnemyTables.GetRandomEnemy(EnemyTables.CommonEnemies);
-              //  GameManager.Instance!.Combat(enemy);
+                Enemy enemy = EnemyTables.GetRandomEnemy(RoomStats.Table);
+                CombatManager.Instance.Combat(enemy);
             }
 
             _empty = true;

@@ -82,7 +82,7 @@ namespace DiceGame.Scripts.CoreSystems
                 for (int row = 0; row < _rooms.GetLength(0); row++)
                 {
                     var room = _rooms[row, column];
-                    var directions = room.RoomRefs.Keys.ToList(); // snapshot
+                    var directions = room.RoomRefs.Keys.ToList(); 
 
                     foreach (var dir in directions)
                     {

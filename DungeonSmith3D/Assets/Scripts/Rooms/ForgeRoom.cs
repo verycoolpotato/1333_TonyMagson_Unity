@@ -5,10 +5,7 @@ namespace DiceGame.Scripts.Rooms
 {
     internal class ForgeRoom : Room
     {
-        protected override string RoomDescription()
-        {
-            return "The room houses a forge, perfect for making new equipment";
-        }
+      
 
         public override void OnRoomSearched(Player player = null)
         {

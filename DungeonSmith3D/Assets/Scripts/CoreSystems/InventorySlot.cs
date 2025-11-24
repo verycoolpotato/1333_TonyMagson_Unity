@@ -31,11 +31,6 @@ public class InventorySlot : MonoBehaviour
         else
             ToolTipPopup.SetActive(true);
             
-        
-           
-
-
-
         Name.text = _item.Stats.ThisItemName;
         Description.text = _item.Stats.Description;
         Icon.sprite = _item.Stats.Icon;

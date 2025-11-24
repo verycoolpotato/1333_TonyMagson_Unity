@@ -8,11 +8,7 @@ namespace DiceGame.Scripts.Rooms
 {
     internal class EmptyRoom : Room
     {
-        protected override string RoomDescription()
-        {
-            _revealed = true;
-            return "A dimly lit, mostly empty room";
-        }
+     
 
         public override void OnRoomSearched(Player player = null)
         {

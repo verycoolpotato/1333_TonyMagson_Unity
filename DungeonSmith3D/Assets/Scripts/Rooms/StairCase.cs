@@ -8,11 +8,7 @@ namespace DiceGame.Scripts.Rooms
 {
     internal class StairCase:Room
     {
-        protected override string RoomDescription()
-        {
-            
-                return "A staircase leading to a new floor";
-        }
+       
         public override void OnRoomSearched(Player player = null)
         {
             

@@ -55,19 +55,11 @@ namespace DiceGame.Scripts.CoreSystems
         }
 
       
-        public Item CombatInventory()
+        public void CombatInventory()
         {
             CombatInventoryPopup.SetActive(true);
 
-            for (int i = 0; i < _inventory.Count; i++)
-            {
-              
-
-               
-            }
-
-           
-            return null;
+          
         }
 
        
@@ -79,15 +71,6 @@ namespace DiceGame.Scripts.CoreSystems
 
            
 
-            for (int i = 0; i < _inventory.Count; i++)
-            {
-                
-                string itemName = "Empty";
-
-                if(_inventory[i]?.Name! != null)
-                    itemName = _inventory[i].Name;
-               
-            }
         }
 
         public List<Item> GetInventory()

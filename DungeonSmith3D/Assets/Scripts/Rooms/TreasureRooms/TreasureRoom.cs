@@ -7,10 +7,7 @@ namespace DiceGame.Scripts.Rooms.TreasureRooms
 {
     internal class TreasureRoom : Room
     {
-        protected override string RoomDescription()
-        {
-            return "A dusty old room filled with junk, a small glimmer escapes from beneath one of the piles";
-        }
+       
 
         public override void OnRoomSearched(Player player = null)
         {

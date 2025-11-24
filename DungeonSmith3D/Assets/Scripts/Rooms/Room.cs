@@ -46,20 +46,6 @@ namespace DiceGame.Scripts.Rooms
         }
 
        
-        
-
-      
-
-       
-        #endregion
-
-        #region Abstract Functions
-
-        /// <summary>
-        /// what room is this?
-        /// </summary>
-        protected abstract string RoomDescription();
-
         /// <summary>
         /// What happens when using the search action
         /// </summary>
@@ -89,7 +75,7 @@ namespace DiceGame.Scripts.Rooms
         {
             
 
-            Console.WriteLine(RoomDescription());
+           
             
             EnteredEvent();
           
