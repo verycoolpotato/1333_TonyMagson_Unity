@@ -31,13 +31,9 @@ namespace DiceGame.Scripts.Creatures
 
         protected virtual void Awake()
         {
-            _health = StartingHealth;    // first set base health
-            _maxHealth = StartingHealth; // then set max health
+            _health = StartingHealth;   
+            _maxHealth = StartingHealth; 
         }
-
-
-
-
 
     }
 }

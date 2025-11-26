@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TableName: BasicTreasureRoom
   Items:
-  - {fileID: 11400000, guid: 0f6b03504e82b6046a889d9bbbef0b4d, type: 2}
   - {fileID: 11400000, guid: 51ee348a39b71d44d8013d3cc4518f28, type: 2}

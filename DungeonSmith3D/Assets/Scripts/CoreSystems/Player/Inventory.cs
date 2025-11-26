@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiceGame.Scripts.Items.Weapons;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,27 +14,32 @@ namespace DiceGame.Scripts.CoreSystems
         [SerializeField] GameObject InventoryPopup;
         [SerializeField] GameObject CombatInventoryPopup;
 
-        public void PickupItem(ItemStats GrabbedItem)
+        public void PickupItem(ItemStats grabbed)
         {
             for (int i = 0; i < _inventory.Count; i++)
             {
                 if (_inventory[i] == null)
                 {
-                    //object instance = Activator.CreateInstance(GrabbedItem.ClassType);
-                    //Item item = instance as Item;
+                    Item newItem;
 
-                    Item item = new Item(GrabbedItem);
-
-                    _inventory[i] = item;
                    
-                 
+                    if (grabbed is WeaponStats weaponStats)
+                    {
+                        newItem = new Weapon(weaponStats);
+                    }
+                    else
+                    {
+                        newItem = new Item(grabbed);
+                    }
+
+                    _inventory[i] = newItem;
                     return;
                 }
-
             }
 
-            Debug.Log("Inventory full, cannot pick up item!");
+            Debug.Log("Inventory full!");
         }
+
 
         public void ClearInventory()
         {
@@ -57,7 +63,7 @@ namespace DiceGame.Scripts.CoreSystems
       
         public void CombatInventory()
         {
-            CombatInventoryPopup.SetActive(true);
+            CombatInventoryPopup.SetActive(!CombatInventoryPopup.activeSelf);
 
           
         }

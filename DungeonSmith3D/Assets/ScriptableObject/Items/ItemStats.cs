@@ -14,11 +14,7 @@ public class ItemStats : ScriptableObject
         Unique = 3
     }
 
-    public enum ItemClass
-    {
-        Weapon,
-        Item
-    }
+    
 
     [Header("Identifiers")]
     [SerializeField] private string ItemName;
@@ -27,7 +23,7 @@ public class ItemStats : ScriptableObject
 
     [Header("Stats")]
     [SerializeField] private Vector2Int RollRange;
-    [SerializeField] private ItemClass ThisClass;
+    
     [Range(1, 3)][SerializeField] private int APCost;
 
     [Header("Drop")]
@@ -42,19 +38,8 @@ public class ItemStats : ScriptableObject
     public string Description => ItemDescription;
     public RarityTiers Tier => Rarity;
     public float DropWeight => Weight;
-    public ItemClass Class => ThisClass;
+ 
 
-    public Type ClassType
-    {
-        get
-        {
-            return ThisClass switch
-            {
-                ItemClass.Weapon => typeof(Weapon),
-                ItemClass.Item => typeof(Item),
-                _ => null
-            };
-        }
-    }
+  
 
 }
