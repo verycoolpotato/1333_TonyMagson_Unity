@@ -47,13 +47,12 @@ namespace DiceGame.Scripts.CoreSystems
 
         public void Play()
         {
-            //spawns the world
+           
             _worldManager.BuildWorld();
 
-            // spawn player after the world is built, for timing
             GamePlayer.InitializeAfterWorldBuild();
 
-            GamePlayer.HandleInput();
+         
         }
 
 

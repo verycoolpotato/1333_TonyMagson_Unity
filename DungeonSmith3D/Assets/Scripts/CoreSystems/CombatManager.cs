@@ -14,7 +14,7 @@ public class CombatManager : MonoBehaviour
 
     private Item _selectedItem;
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
             Instance = this;
@@ -30,78 +30,96 @@ public class CombatManager : MonoBehaviour
     public void Combat(Enemy enemy)
     {
         StartCoroutine(CombatLoop(_manager.GamePlayer, enemy));
-        _manager.GamePlayer.inventory.CombatInventory();
+        _manager.GamePlayer.PlayerInventory.CombatInventory();
     }
 
     public void SelectItem(Item item)
     {
-        if(_selectedItem == null)
-            _selectedItem = item;
+        _selectedItem = item;
     }
 
-
-    /// <summary>
-    /// Main combat loop 
-    /// </summary>
     private IEnumerator CombatLoop(Player player, Enemy enemy)
     {
-        while (player.Health > 0 && enemy.Health > 0)
+        Enemy tempEnemy = Instantiate(enemy, transform.position, Quaternion.identity);
+
+        while (player.Health > 0 && tempEnemy.Health > 0)
         {
+          
+            // START OF TURN
+         
             int playerActions = 3;
             int blockAmount = 0;
-            int playerDamage = 0;
+            int totalPlayerDamage = 0;
 
-            
-            int enemyDamage = enemy.NextAttack();
+            int incomingDamage = tempEnemy.NextAttack();
 
+            // Reset selection for this round
+            _selectedItem = null;
+
+           
+            // PLAYER ACTION PHASE
+           
             while (playerActions > 0)
             {
-               
+                // Wait for UI selection
                 while (_selectedItem == null)
                     yield return null;
 
-                if (_selectedItem.ActionPointCost <= playerActions)
+                Item item = _selectedItem;
+                _selectedItem = null; 
+
+                if (item.ActionPointCost > playerActions)
+                    continue;
+
+                if (item is Weapon weapon)
                 {
-                    if (_selectedItem is Weapon weapon)
+                    int roll = weapon.Attack(_roller);
+
+                    if (weapon.WeaponStat.ThisWeaponStyle == Weapon.WeaponStyles.Fists)
                     {
-                        if (weapon.WeaponStat.ThisWeaponStyle == Weapon.WeaponStyles.Fists)
-                        {
-                            blockAmount += weapon.Attack(_roller);
-                        }
-                        int roll = weapon.Attack(_roller);
-                        playerDamage += roll;
+                        
+                        blockAmount += roll;
                     }
-
-
-                    playerActions -= _selectedItem.ActionPointCost;
+                    else
+                    {
+                     
+                        totalPlayerDamage += roll;
+                    }
                 }
 
+                playerActions -= item.ActionPointCost;
                 yield return null;
             }
 
-            enemyDamage -= blockAmount;
+   
+            // RESOLVE DAMAGE
+          
+            int finalEnemyDamage = Mathf.Max(0, incomingDamage - blockAmount);
 
-            
+            // enemy takes player damage
+            if (totalPlayerDamage > 0)
+                tempEnemy.Health -= totalPlayerDamage;
 
-            if (playerDamage > enemyDamage)
-            {
-                enemy.Health -= playerDamage;
-            }
-            else
-            {
-                player.Health -= enemyDamage;
-            }
+            // player takes damage
+            if (finalEnemyDamage > 0)
+                player.Health -= finalEnemyDamage;
 
-
-            yield return new WaitForSeconds(1f);
+           
+            // Delay
+           
+            yield return new WaitForSeconds(0.75f);
         }
 
+      
+        // END OF COMBAT
+      
         if (player.Health <= 0)
         {
             _manager.GameOver();
             yield break;
         }
 
-
+     
     }
+
 }

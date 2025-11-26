@@ -36,19 +36,7 @@ namespace DiceGame.Scripts.Creatures
         }
 
 
-        public void HandleInput()
-        {
-            
-            //Move(Room.Direction.West);
-            //PlayerInventory.ViewInventory(Health, _maxHealth);
-           
-
-            //if (Input.GetKeyDown(KeyCode.Alpha1))
-            //    CurrentRoom?.OnRoomSearched(this);
-
-            //if (Input.GetKeyDown(KeyCode.Alpha2))
-            //    PlayerInventory.ViewInventory(Health, _maxHealth);
-        }
+      
 
         public void Move(Room.Direction direction)
         {

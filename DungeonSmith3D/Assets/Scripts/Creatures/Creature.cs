@@ -11,7 +11,7 @@ namespace DiceGame.Scripts.Creatures
     public abstract class Creature : MonoBehaviour
     {
 
-
+        [SerializeField] int StartingHealth;
         private int _health;
         internal int Health
         {
@@ -27,13 +27,14 @@ namespace DiceGame.Scripts.Creatures
         protected int _maxHealth;
         internal Inventory inventory;
 
-      
 
-        private void Awake()
+
+        protected virtual void Awake()
         {
-            _maxHealth = _health;
-            Health = _health;
+            _health = StartingHealth;    // first set base health
+            _maxHealth = StartingHealth; // then set max health
         }
+
 
 
 
