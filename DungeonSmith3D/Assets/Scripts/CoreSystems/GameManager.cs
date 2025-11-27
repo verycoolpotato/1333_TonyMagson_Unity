@@ -1,9 +1,8 @@
 ﻿using DiceGame.Scripts.Creatures;
 using DiceGame.Scripts.HelperClasses;
-using DiceGame.Scripts.Items.Consumables;
-using DiceGame.Scripts.Items.Weapons;
-using System.Collections;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DiceGame.Scripts.CoreSystems
 {
@@ -20,6 +19,8 @@ namespace DiceGame.Scripts.CoreSystems
 
         public Player GamePlayer;
 
+        [SerializeField] GameObject PauseMenu;
+       
         private void Awake()
         {
             if (Instance == null)
@@ -55,17 +56,21 @@ namespace DiceGame.Scripts.CoreSystems
          
         }
 
-
+        public void PauseGame()
+        {
+            PauseMenu.SetActive(!PauseMenu.activeSelf);
+            Time.timeScale = PauseMenu.activeSelf ? 1 : 0 ;
+        }
 
         /// <summary>
         /// Game end — ask if the player wants to retry (simplified for Unity).
         /// </summary>
         public void GameOver()
         {
-            Debug.Log("<color=red>Another traveller swallowed by the dungeon.</color>");
-            Debug.Log("Restarting the game...");
+          
             ResetProgression();
-            Play();
+            
+            SceneManager.LoadScene("MainMenu");
         }
 
         private void ResetProgression()

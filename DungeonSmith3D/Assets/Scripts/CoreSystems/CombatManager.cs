@@ -3,6 +3,7 @@ using DiceGame.Scripts.Creatures;
 using DiceGame.Scripts.HelperClasses;
 using DiceGame.Scripts.Items.Weapons;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -13,7 +14,9 @@ public class CombatManager : MonoBehaviour
     public static CombatManager Instance;
 
     private Item _selectedItem;
-
+    [SerializeField] TextMeshProUGUI DamageNumber;
+    [SerializeField] TextMeshProUGUI APNumber;
+    [SerializeField] TextMeshProUGUI EnemyName;
     private void Start()
     {
         if (Instance == null)
@@ -40,6 +43,8 @@ public class CombatManager : MonoBehaviour
 
     private IEnumerator CombatLoop(Player player, Enemy enemy)
     {
+
+        EnemyName.text = enemy.name;
         Debug.Log("--- COMBAT STARTED with " + enemy.name + " ---");
         Debug.Log("Player HP: " + player.Health);
 
@@ -63,6 +68,8 @@ public class CombatManager : MonoBehaviour
 
             while (playerActions > 0)
             {
+                APNumber.text = playerActions.ToString() + " AP";
+
                 while (_selectedItem == null)
                     yield return null;
 
@@ -100,7 +107,7 @@ public class CombatManager : MonoBehaviour
 
                 playerActions -= item.ActionPointCost;
                 Debug.Log("AP Remaining: " + playerActions);
-
+                DamageNumber.text = "Total Damage - " + totalPlayerDamage.ToString();
                 yield return null;
             }
 

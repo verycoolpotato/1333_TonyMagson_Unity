@@ -15,3 +15,5 @@ MonoBehaviour:
   TableName: BasicTreasureRoom
   Items:
   - {fileID: 11400000, guid: 51ee348a39b71d44d8013d3cc4518f28, type: 2}
+  - {fileID: 11400000, guid: f32ab870baa102947989420eac5ae88b, type: 2}
+  - {fileID: 11400000, guid: 49ca698a900386a48952fa412274d4eb, type: 2}
