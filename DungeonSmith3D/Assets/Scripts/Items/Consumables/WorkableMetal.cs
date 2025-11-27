@@ -10,27 +10,22 @@ using System.Linq;
 using UnityEngine;
 namespace DiceGame.Scripts.Items.Consumables
 {
-    internal class WorkableMetal : Consumable
+    internal class WorkableMetal : Item
     {
         
-        public WorkableMetal (RarityTiers rarity) : base(rarity, new Vector2Int (1,1)) 
-        {
-           
-            Name = $"{rarity.ToString()} WorkableMetal"; 
-        }
+      
        
         private DieRoller _roller = new DieRoller();
 
        
-
-        protected override void DescribeItem()
+        public WorkableMetal(ItemStats stats) : base(stats)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("A piece of malleable metal, could be used at a forge to create new weapons");
-            Console.ResetColor();
-            Console.WriteLine();
-            base.DescribeItem();
+
         }
+
+
+
+
 
         /// <summary>
         /// Forge menu
@@ -82,7 +77,7 @@ namespace DiceGame.Scripts.Items.Consumables
                     int inputType = InputHelper.GetIntInput();
                     Item forgedItem = null;
                     Console.WriteLine("Forging a weapon...");
-                   
+                   /*
                     switch (inputType)
                     {
 
@@ -109,6 +104,9 @@ namespace DiceGame.Scripts.Items.Consumables
                         default:
                             continue;
                     }
+
+
+                    */
                     RemoveItem();
                     return;
                 }

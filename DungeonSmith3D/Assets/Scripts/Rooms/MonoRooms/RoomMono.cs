@@ -5,6 +5,8 @@ public class RoomMono : MonoBehaviour
     //Door references
     [SerializeField] private GameObject NorthDoor, WestDoor, SouthDoor, EastDoor;
     private RoomMono _north,_south, _east,_west;
+
+    [SerializeField] public RoomStats Data;
     public void RoomSetup(RoomMono North, RoomMono West, RoomMono South, RoomMono East)
     {
         //Open doors

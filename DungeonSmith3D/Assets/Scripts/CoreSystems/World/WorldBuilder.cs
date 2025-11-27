@@ -6,17 +6,19 @@ using UnityEngine;
 public class WorldBuilder : MonoBehaviour
 {
     [SerializeField] RoomMono[] RoomPrefabs;
-    [SerializeField] private float RoomSize = 10;
+   
     private RoomMono[,] _visibleRooms;
+
+    public DungeonGrid FloorData;
 
     public void CreateMap()
     {
-        int grid = GameManager.Instance.RoomGrid;
-        _visibleRooms = new RoomMono[grid, grid];
+        
+        _visibleRooms = new RoomMono[FloorData.GridSizeX, FloorData.GridSizeZ];
 
-        for (int x = 0; x < grid; x++)
+        for (int x  = 0; x < FloorData.GridSizeX; x++)
         {
-            for (int z = 0; z < grid; z++)
+            for (int z = 0; z < FloorData.GridSizeZ; z++)
             {
                 Vector3 coords = new Vector3(x, 0, z);
                 Room room = WorldManager.Instance.Rooms()[x, z]; 
@@ -29,15 +31,13 @@ public class WorldBuilder : MonoBehaviour
 
     internal void OpenDoors()
     {
-        int grid = GameManager.Instance.RoomGrid;
-
-        for (int x = 0; x < grid; x++)
+        for (int x = 0; x < FloorData.GridSizeX; x++)
         {
-            for (int z = 0; z < grid; z++)
+            for (int z = 0; z < FloorData.GridSizeZ; z++)
             {
-                RoomMono north = z + 1 < grid ? _visibleRooms[x, z + 1] : null;
+                RoomMono north = z + 1 < FloorData.GridSizeZ ? _visibleRooms[x, z + 1] : null;
                 RoomMono south = z - 1 >= 0 ? _visibleRooms[x, z - 1] : null;
-                RoomMono east = x + 1 < grid ? _visibleRooms[x + 1, z] : null;
+                RoomMono east = x + 1 < FloorData.GridSizeX ? _visibleRooms[x + 1, z] : null;
                 RoomMono west = x - 1 >= 0 ? _visibleRooms[x - 1, z] : null;
 
                 _visibleRooms[x, z].RoomSetup(north, west, south, east);
@@ -47,25 +47,31 @@ public class WorldBuilder : MonoBehaviour
 
     internal void PlaceRoom(Room RoomToPlace, Vector3 Location)
     {
-        RoomMono room;
+        RoomMono prefab;
 
         switch (RoomToPlace)
         {
             case TreasureRoom:
-                room = RoomPrefabs[1];
+                prefab = RoomPrefabs[1];
                 break;
             case MonsterRoom:
-                room = RoomPrefabs[2];
+                prefab = RoomPrefabs[2];
                 break;
             case ForgeRoom:
-                room = RoomPrefabs[3];
+                prefab = RoomPrefabs[3];
                 break;
             default:
-                room = RoomPrefabs[0];
+                prefab = RoomPrefabs[0];
                 break;
         }
 
-        RoomMono ThisRoom = Instantiate(room, Location * RoomSize, Quaternion.identity);
-        _visibleRooms[(int)Location.x, (int)Location.z] = ThisRoom;
+        RoomMono instance = Instantiate(prefab, Location * FloorData.NodeSize, Quaternion.identity);
+
+        // Link the logical room to the prefab's stats
+        if (prefab.Data != null)
+            RoomToPlace.RoomStats = prefab.Data;
+
+        _visibleRooms[(int)Location.x, (int)Location.z] = instance;
     }
+
 }

@@ -2,6 +2,7 @@
 using DiceGame.Scripts.Creatures;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 
 
@@ -10,7 +11,9 @@ namespace DiceGame.Scripts.Rooms
   
     internal abstract class Room
     {
+        public RoomStats RoomStats;
         
+
         public enum Direction
         {
             None,
@@ -43,20 +46,6 @@ namespace DiceGame.Scripts.Rooms
         }
 
        
-        
-
-      
-
-       
-        #endregion
-
-        #region AbstractClasses
-
-        /// <summary>
-        /// what room is this?
-        /// </summary>
-        protected abstract string RoomDescription();
-
         /// <summary>
         /// What happens when using the search action
         /// </summary>
@@ -75,7 +64,7 @@ namespace DiceGame.Scripts.Rooms
         #region Exploration
         
 
-        public abstract string RoomIcon();
+        
        
 
         /// <summary>
@@ -86,7 +75,7 @@ namespace DiceGame.Scripts.Rooms
         {
             
 
-            Console.WriteLine(RoomDescription());
+           
             
             EnteredEvent();
           

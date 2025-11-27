@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace DiceGame.Scripts.Items.Weapons
 {
-    internal abstract class Weapon : Item
+  
+    internal class Weapon : Item
     {
+       
+
         internal enum Durability
         {
             Unbreakable = 0,
@@ -16,39 +19,30 @@ namespace DiceGame.Scripts.Items.Weapons
             Shattered = 4,
             
         }
-        protected enum WeaponStyles 
+        internal enum WeaponStyles 
         {
             Fists = 0,
             OneHanded = 1,
             TwoHanded = 2,
             Heavy = 3
-        
         }
 
-        /// <summary>
-        /// Describe weapon specific attributes
-        /// </summary>
-        protected override void DescribeItem()
-        {
-            Console.WriteLine();
-            Console.WriteLine($"Weapon - {_style}");
-            Console.WriteLine($"Damage: {Die.x}-{Die.y}");
-            Console.WriteLine($"Durability: {WeaponDurability}");
-            Console.WriteLine();
-        }
+
+        public WeaponStats WeaponStat;
 
         protected WeaponStyles _style;
-        private Vector2Int _defaultDamage;
+        
         internal Durability WeaponDurability;
         
-        internal Weapon(string WeaponName, Durability durability, Vector2Int die) : base(die)
+        public Weapon(WeaponStats WeaponStat) : base(WeaponStat)
         {
-            CommandActions["Rename"] = Rename;
-            _defaultDamage = Die;
-            Name = WeaponName;
-            WeaponDurability = durability;
            
+            WeaponDurability = WeaponStat.StartDurability;
+        }
+        private void Awake()
+        {
            
+            
         }
 
         /// <summary>
@@ -110,7 +104,7 @@ namespace DiceGame.Scripts.Items.Weapons
 
         internal void Repair()
         {
-            Die = _defaultDamage;
+            Die = _stats.ItemRollRange;
             Console.WriteLine("Repaired");
             WeaponDurability = Durability.Sturdy;
         }

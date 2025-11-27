@@ -10,21 +10,9 @@ namespace DiceGame.Scripts.Items.Weapons
 {
     internal class RedMetalSword : Weapon
     {
-        public RedMetalSword(string WeaponName, Durability durability, Vector2Int DamageRange) : base(WeaponName,durability, DamageRange) 
-        {
-            ActionPointCost = 2;
-            _style = WeaponStyles.TwoHanded;
-            
-        }
+        public RedMetalSword(WeaponStats weaponStats) : base(weaponStats) { }
        
-        protected override void DescribeItem()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("A long sword crafted from Red Metal. Heals its user when its durability decreases");
-            Console.ResetColor();
-
-            base.DescribeItem();
-        }
+       
 
         internal override void Use()
         {

@@ -3,17 +3,28 @@ using DiceGame.Scripts.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
-internal abstract class Item
+public class Item 
 {
     internal string Name;
 
     protected Vector2Int Die;
 
+    protected ItemStats _stats;
+    public ItemStats Stats => _stats;
+
     public int ActionPointCost { get; protected set; }
-    internal Item(Vector2Int die)
+    
+  
+
+    public Item(ItemStats stats)
     {
-        Die = die;
+        _stats = stats;
+        Die = _stats.ItemRollRange;
+        ActionPointCost = _stats.ActionPointCost;
+        Name = _stats.ThisItemName;
+        
     }
 
     //allows looping through methods
@@ -26,8 +37,14 @@ internal abstract class Item
        
     }
 
-    internal abstract void Use();
-    protected abstract void DescribeItem();
+    internal virtual void Use()
+    {
+
+    }
+    protected string ItemDescription()
+    {
+        return _stats.Description;
+    }
 
     internal Vector2Int DieRange()
     {
@@ -39,9 +56,7 @@ internal abstract class Item
     /// </summary>
     protected void Drop()
     {
-        Console.WriteLine($"Are you sure you want to get rid of {Name}?");
-        Console.WriteLine("[1] Keep");
-        Console.WriteLine("[2] Drop");
+      
         if (InputHelper.GetIntInput() == 2)
         {
             Console.WriteLine($"{Name} was dropped.");
@@ -64,7 +79,7 @@ internal abstract class Item
        DefaultCommands();
 
         Console.WriteLine($"\n--- {Name} ---");
-        DescribeItem();
+        ItemDescription();
 
         // Display options
         var keys = CommandActions.Keys.ToList();

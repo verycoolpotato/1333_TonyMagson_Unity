@@ -1,31 +1,45 @@
-﻿using DiceGame.Scripts.HelperClasses;
-using DiceGame.Scripts.Items;
-using DiceGame.Scripts.Items.Consumables;
-using DiceGame.Scripts.Items.Weapons;
+﻿using DiceGame.Scripts.Items.Weapons;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+
 
 namespace DiceGame.Scripts.CoreSystems
 {
-    internal class Inventory
+    internal class Inventory : MonoBehaviour
     {
-        private List<Item> _inventory = new List<Item>(9) { null, null, null, null, null, null, null, null, null };
+        private List<Item> _inventory = new List<Item>(10) { null, null, null, null, null, null, null, null, null,null};
 
-        public void PickupItem(Item GrabbedItem, bool AnnouncePickup)
+
+        [SerializeField] GameObject InventoryPopup;
+        [SerializeField] GameObject CombatInventoryPopup;
+
+        public void PickupItem(ItemStats grabbed)
         {
             for (int i = 0; i < _inventory.Count; i++)
             {
                 if (_inventory[i] == null)
                 {
-                    _inventory[i] = GrabbedItem;
-                    if (AnnouncePickup)
-                        UnityEngine.Debug.Log($"Picked up {GrabbedItem.Name}");
+                    Item newItem;
+
+                   
+                    if (grabbed is WeaponStats weaponStats)
+                    {
+                        newItem = new Weapon(weaponStats);
+                    }
+                    else
+                    {
+                        newItem = new Item(grabbed);
+                    }
+
+                    _inventory[i] = newItem;
                     return;
                 }
             }
 
-            UnityEngine.Debug.LogWarning("Inventory full, cannot pick up item!");
+            Debug.Log("Inventory full!");
         }
+
 
         public void ClearInventory()
         {
@@ -47,31 +61,22 @@ namespace DiceGame.Scripts.CoreSystems
         }
 
       
-        public Item CombatInventory()
+        public void CombatInventory()
         {
-            foreach (var item in _inventory)
-            {
-                if (item != null)
-                    return item;
-            }
+            CombatInventoryPopup.SetActive(!CombatInventoryPopup.activeSelf);
 
-            UnityEngine.Debug.LogWarning("Inventory empty, returning null.");
-            return null;
+          
         }
 
-        // Temporary non-blocking inventory display
+       
         public void ViewInventory(int? health = null, int? MaxHealth = null)
         {
-            UnityEngine.Debug.Log("=== INVENTORY ===");
+           
+            //Toggle inventory
+            InventoryPopup.SetActive(!InventoryPopup.activeSelf); 
 
-            if (health != null && MaxHealth != null)
-                UnityEngine.Debug.Log($"{health}/{MaxHealth} Health");
+           
 
-            for (int i = 0; i < _inventory.Count; i++)
-            {
-                string itemName = _inventory[i]?.Name ?? "Empty";
-                UnityEngine.Debug.Log($"[{i + 1}] {itemName}");
-            }
         }
 
         public List<Item> GetInventory()

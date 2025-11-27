@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace DiceGame.Scripts.Creatures
 {
-    internal abstract class Creature
+    public abstract class Creature : MonoBehaviour
     {
 
-
+        [SerializeField] int StartingHealth;
         private int _health;
         internal int Health
         {
@@ -26,23 +27,13 @@ namespace DiceGame.Scripts.Creatures
         protected int _maxHealth;
         internal Inventory inventory;
 
-        protected Creature(int health)
-        {
-            _maxHealth = health;
-            Health = health;
-           
-        }
-        protected Creature(int health, string name)
-        {
-            _maxHealth = health;
-            Health = health;
-            Name = name;
-            
-        }
 
-        
 
-        
+        protected virtual void Awake()
+        {
+            _health = StartingHealth;   
+            _maxHealth = StartingHealth; 
+        }
 
     }
 }

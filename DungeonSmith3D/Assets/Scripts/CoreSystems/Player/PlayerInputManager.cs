@@ -1,4 +1,5 @@
 using DiceGame.Scripts.CoreSystems;
+using DiceGame.Scripts.Creatures;
 using DiceGame.Scripts.Rooms;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,5 +22,20 @@ public class PlayerInputManager : MonoBehaviour
            
         }
        
+    }
+
+    public void Search(InputAction.CallbackContext input)
+    {
+        if (input.performed)
+        {
+            Debug.Log("Search");
+            Player.CurrentRoom.OnRoomSearched(GameManager.Instance.GamePlayer);
+        }
+    }
+
+    public void ViewInventory(InputAction.CallbackContext input)
+    {
+        if(input.performed)
+        GameManager.Instance.GamePlayer.PlayerInventory.ViewInventory();
     }
 }
